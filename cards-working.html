@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cards - Northstar Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="js/dashboard-interactions.js"></script>
+  <style>
+    :root { --navy: #071d3a; --blue: #0a4e9b; --gold: #f3b600; --cream: #f7f5f0; --ink: #152238; --muted: #5f6b7a; --line: #dfe4ea; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", Arial, sans-serif; background: var(--cream); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    
+    /* Header - matching index.html */
+    header { color: #fff; background: var(--navy); }
+    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; color: #fff; font-family: "Playfair Display", serif; font-size: 24px; letter-spacing: -0.7px; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--gold); color: var(--gold); font: 700 19px Georgia, serif; }
+    .utility { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+    .utility a:hover { color: var(--gold); }
+    .signin { padding: 10px 17px; color: var(--navy); background: var(--gold); font-weight: 700; border-radius: 2px; border: none; cursor: pointer; }
+    .nav-row { border-top: 1px solid rgba(255,255,255,0.18); }
+    .nav { height: 50px; display: flex; align-items: center; gap: 35px; font-size: 15px; font-weight: 600; }
+    .nav a:hover { color: var(--gold); }
+    
+    /* Dashboard Layout */
+    .dashboard { display: block; min-height: calc(100vh - 126px); }
+    .dashboard-head { padding: 20px 0; color: #fff; background: var(--navy); }
+    .dashboard-head .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .dashboard-main { padding: 48px 0 70px; }
+    .dashboard-title { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 30px; }
+    .dashboard-title h1 { margin: 0; font-size: 43px; font-family: "Playfair Display", serif; }
+    .dashboard-title p { margin: 8px 0 0; color: var(--muted); }
+    
+    .section-header { margin-bottom: 32px; }
+    .section-header h1 { font-size: 43px; font-family: "Playfair Display", serif; margin-bottom: 8px; letter-spacing: -1.7px; }
+    .section-date { color: var(--muted); font-size: 14px; }
+    
+    .cards-display { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 32px; }
+    .credit-card { background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 50%, var(--gold) 100%); border-radius: 6px; padding: 32px; color: white; aspect-ratio: 1.586; position: relative; }
+    .chip { width: 50px; height: 38px; background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); border-radius: 6px; margin-bottom: 24px; }
+    .card-number { font-size: 18px; letter-spacing: 2px; margin-bottom: 24px; font-weight: 600; }
+    .card-details { display: flex; justify-content: space-between; }
+    .card-holder { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+    .card-expiry { font-size: 13px; }
+    
+    .card-info { background: #fff; padding: 25px; border-radius: 6px; border: 1px solid var(--line); }
+    .card-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
+    .stat-item { padding: 16px; background: var(--cream); border-radius: 6px; border: 1px solid var(--line); }
+    .stat-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+    .stat-value { font-size: 18px; font-weight: 700; color: var(--ink); }
+    .card-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .card-btn { padding: 12px; background: var(--cream); border: 1px solid var(--line); border-radius: 6px; font-weight: 500; cursor: pointer; }
+    .card-btn:hover { background: var(--gold); border-color: var(--gold); color: #0d213f; }
+    
+    .transactions { background: #fff; padding: 25px; border-radius: 6px; border: 1px solid var(--line); }
+    .transactions h3 { margin: 0 0 18px; font-family: "DM Sans", sans-serif; font-size: 19px; }
+    .card-transaction { display: flex; align-items: center; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+    .card-transaction:first-of-type { border-top: 0; }
+    .trans-name { font-weight: 700; color: var(--ink); }
+    .trans-meta { font-size: 13px; color: var(--muted); }
+    .trans-amount { font-weight: 700; color: var(--ink); }
+    
+    /* Sign out button */
+    .signout { padding: 8px 0; border: 0; color: var(--gold); background: transparent; font: inherit; font-weight: 700; cursor: pointer; }
+    
+    @media (max-width: 700px) {
+      .dashboard-title { display: block; }
+      .dashboard-title h1 { font-size: 35px; }
+      .topbar { flex-wrap: wrap; min-height: auto; padding: 15px 0; }
+      .nav { overflow-x: auto; gap: 20px; -webkit-overflow-scrolling: touch; }
+      .nav::-webkit-scrollbar { display: none; }
+      .container { width: calc(100% - 20px); }
+      .dashboard-main { padding: 30px 0; }
+      .cards-display { grid-template-columns: 1fr; }
+      .card-stats { grid-template-columns: 1fr; }
+      .card-actions { grid-template-columns: 1fr; }
+      .card-transaction { flex-wrap: wrap; gap: 10px; }
+      .trans-amount { width: 100%; text-align: left; }
+      .trans-name, .trans-meta { word-wrap: break-word; overflow-wrap: break-word; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+      <div class="utility">
+        <a href="support.html">Help & support</a>
+        <button class="signout">Sign out</button>
+      </div>
+    </div>
+    <div class="nav-row">
+      <nav class="container nav" aria-label="Main navigation">
+        <a href="dashboard-working.html">Overview</a>
+        <a href="accounts-working.html">Accounts</a>
+        <a href="transfers-working.html">Transfers</a>
+        <a href="payments-working.html">Bill Pay</a>
+        <a href="cards-working.html" style="color: var(--gold);">Cards</a>
+        <a href="goals-working.html">Goals</a>
+        <a href="statements-working.html">Statements</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="dashboard">
+    <div class="dashboard-head">
+      <div class="container">
+        <div class="dashboard-title">
+          <div>
+            <h1>My Cards</h1>
+            <p>Manage your credit and debit cards</p>
+          </div>
+          <p style="color: rgba(255,255,255,0.7);">As of July 15, 2026</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-main">
+      <div class="container">
+        
+        <div class="cards-display">
+          <div class="credit-card">
+            <div class="chip"></div>
+            <div class="card-number">**** **** **** 1139</div>
+            <div class="card-details">
+              <div class="card-holder">JOHN SMITH</div>
+              <div class="card-expiry">09/28</div>
+            </div>
+          </div>
+          
+          <div class="card-info">
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-label">Current Balance</div>
+                <div class="stat-value">$1,284.33</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Available Credit</div>
+                <div class="stat-value">$8,715.67</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Credit Limit</div>
+                <div class="stat-value">$10,000.00</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Rewards Points</div>
+                <div class="stat-value">2,450</div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="card-btn">View Statement</button>
+              <button class="card-btn">Make Payment</button>
+              <button class="card-btn">Lock Card</button>
+              <button class="card-btn">Settings</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="transactions">
+          <h3>Recent Card Transactions</h3>
+          <div class="card-transaction">
+            <div>
+              <div class="trans-name">Shell Gas Station</div>
+              <div class="trans-meta">Jul 12, 2026</div>
+            </div>
+            <div class="trans-amount">-$45.00</div>
+          </div>
+          <div class="card-transaction">
+            <div>
+              <div class="trans-name">Amazon.com</div>
+              <div class="trans-meta">Jul 9, 2026</div>
+            </div>
+            <div class="trans-amount">-$67.99</div>
+          </div>
+          <div class="card-transaction">
+            <div>
+              <div class="trans-name">Uber Ride</div>
+              <div class="trans-meta">Jul 7, 2026</div>
+            </div>
+            <div class="trans-amount">-$24.50</div>
+          </div>
+          <div class="card-transaction">
+            <div>
+              <div class="trans-name">Gas Station</div>
+              <div class="trans-meta">Jun 15, 2026</div>
+            </div>
+            <div class="trans-amount">-$52.30</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

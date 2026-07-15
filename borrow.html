@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Northstar Bank Home Lending - Fast approval, flexible loan options, competitive rates, and transparent terms. Get practical guidance from prequalification through closing.">
+  <title>Home Lending — Northstar Bank</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/critical.css">
+  <link rel="stylesheet" href="css/templatemo-style.css">
+  <link rel="stylesheet" href="css/page-styles.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header>
+    <div class="container topbar"><a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+      <div class="utility"><a href="support.html">Help &amp; support</a><a href="locations.html">Find a location</a><button class="signin access-trigger" type="button">Sign in</button></div>
+    </div>
+    <div class="nav-row"><nav class="container nav"><a href="products.html">Banking</a><a href="borrow.html">Borrowing</a><a href="invest.html">Investing</a><a href="security.html">Security</a><a href="support.html">Support</a></nav></div>
+  </header>
+  <main>
+    <section class="product-detail">
+      <div class="container">
+        <h1>Home Lending</h1>
+        <p>Get practical guidance from prequalification through closing, all on your timeline.</p>
+        <a class="page-button" href="prequal.html">Start prequalification</a>
+      </div>
+    </section>
+    <section class="page-section-cream">
+      <div class="container">
+        <h2>At Northstar Bank</h2>
+        <p>We know that when life moves fast, you need a lending partner who can keep up. Whether it's seizing a new opportunity, handling an unexpected expense, or making a dream purchase, we're here to make borrowing simple, transparent, and stress-free.</p>
+      </div>
+    </section>
+    <section class="page-section">
+      <div class="container">
+        <h3>Why Choose Northstar Bank for Your Loan?</h3>
+        <div class="feature-grid" style="margin-top: 40px;">
+          <div class="feature-card">
+            <h3>Fast, Hassle-Free Approval</h3>
+            <p>Apply online in minutes and get a decision quickly.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Flexible Loan Options</h3>
+            <p>Personal, business, and mortgage loans tailored to your needs.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Competitive Rates</h3>
+            <p>Keep your repayments manageable without sacrificing your plans.</p>
+          </div>
+          <div class="feature-card">
+            <h3>No Hidden Surprises</h3>
+            <p>Clear terms, upfront fees, and total transparency.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="page-section-cream">
+      <div class="container">
+        <h3>How It Works</h3>
+        <div class="feature-grid-3">
+          <div>
+            <div class="step-number">1</div>
+            <h3>Apply Anytime, Anywhere</h3>
+            <p>Our secure online form takes just minutes.</p>
+          </div>
+          <div>
+            <div class="step-number">2</div>
+            <h3>Get a Quick Decision</h3>
+            <p>We review your application promptly.</p>
+          </div>
+          <div>
+            <div class="step-number">3</div>
+            <h3>Receive Your Funds</h3>
+            <p>Direct deposit into your account so you can get moving.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="page-section">
+      <div class="container">
+        <h3>Your Goals, Our Priority</h3>
+        <p>We believe borrowing should empower you — not hold you back. That's why we combine modern technology with personal service, ensuring you get the right loan, the right way, at the right time.</p>
+        <p style="font-size: 16px; margin: 30px 0;">💡 <strong>Don't let opportunity pass you by.</strong></p>
+        <a class="page-button" href="prequal.html">Apply today and take the next step toward your goals with Northstar Bank by your side.</a>
+      </div>
+    </section>
+  </main>
+  <div class="access-modal" id="accessModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="accessTitle">
+      <button class="close-modal" id="closeModal" type="button" aria-label="Close">&times;</button>
+      
+      <!-- Sign In Form -->
+      <div id="signinForm" style="display: block;">
+        <h2 id="accessTitle">Sign in to your account</h2>
+        <p>Access your Northstar Bank account to view balances, transfer funds, and manage your finances.</p>
+        
+        <label class="form-label" for="signinEmail">Email address</label>
+        <input class="form-input" id="signinEmail" type="email" placeholder="you@example.com" autocomplete="email">
+        
+        <label class="form-label" for="signinPassword">Password</label>
+        <input class="form-input" id="signinPassword" type="password" placeholder="Enter your password" autocomplete="current-password">
+        
+        <p id="signinError" class="info-note" hidden></p>
+        
+        <div class="modal-actions">
+          <button class="button" id="signInBtn" type="button">Sign in</button>
+          <button class="text-button" id="switchToSignup" type="button">Don't have an account? Sign up</button>
+        </div>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div id="signupForm" style="display: none;">
+        <h2>Create your account</h2>
+        <p>Join Northstar Bank to access online and mobile banking, view your accounts, and manage your finances.</p>
+        
+        <label class="form-label" for="fullName">Full name</label>
+        <input class="form-input" id="fullName" type="text" placeholder="John Smith" autocomplete="name">
+        
+        <label class="form-label" for="email">Email address</label>
+        <input class="form-input" id="email" type="email" placeholder="you@example.com" autocomplete="email">
+        
+        <label class="form-label" for="phone">Phone number</label>
+        <input class="form-input" id="phone" type="tel" placeholder="(555) 000-0000" autocomplete="tel">
+        
+        <label class="form-label" for="password">Password</label>
+        <input class="form-input" id="password" type="password" placeholder="At least 8 characters" minlength="8" autocomplete="new-password">
+        
+        <label class="form-label" for="confirmPassword">Confirm password</label>
+        <input class="form-input" id="confirmPassword" type="password" placeholder="Re-enter your password" minlength="8" autocomplete="new-password">
+        
+        <p id="signupError" class="info-note" hidden></p>
+        
+        <div class="modal-actions">
+          <button class="button" id="createAccountBtn" type="button">Create account</button>
+          <button class="text-button" id="switchToSignin" type="button">Already have an account? Sign in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard" id="dashboard"></div>
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+        <div class="footer-links">
+          <div>
+            <h4>Banking</h4>
+            <a href="products.html">All Products</a>
+            <a href="checking.html">Checking</a>
+            <a href="savings.html">Savings</a>
+          </div>
+          <div>
+            <h4>Borrowing</h4>
+            <a href="borrow.html">Home Loans</a>
+            <a href="prequal.html">Prequalification</a>
+          </div>
+          <div>
+            <h4>Resources</h4>
+            <a href="invest.html">Investing</a>
+            <a href="security.html">Security</a>
+            <a href="support.html">Support</a>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <a href="locations.html">Locations</a>
+            <a href="index.html">About</a>
+            <a href="support.html">Contact</a>
+          </div>
+        </div>
+      </div>
+      <p class="fine">© 2026 Northstar Bank. All rights reserved.</p>
+    </div>
+  </footer>
+  <script defer src="js/vendor/jquery-1.11.2.min.js"></script>
+  <script defer src="js/vendor/bootstrap.min.js"></script>
+  <script defer src="js/plugins.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/dashboard-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accounts - Northstar Bank</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="js/dashboard-interactions.js"></script>
+  <style>
+    :root {
+      --navy: #071d3a;
+      --blue: #0a4e9b;
+      --gold: #f3b600;
+      --cream: #f7f5f0;
+      --ink: #152238;
+      --muted: #5f6b7a;
+      --line: #dfe4ea;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", Arial, sans-serif; background: var(--cream); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    
+    header { color: #fff; background: var(--navy); }
+    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; color: #fff; font-family: "Playfair Display", serif; font-size: 24px; letter-spacing: -0.7px; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--gold); color: var(--gold); font: 700 19px Georgia, serif; }
+    .utility { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+    .utility a:hover { color: var(--gold); }
+    .signin { padding: 10px 17px; color: var(--navy); background: var(--gold); font-weight: 700; border-radius: 2px; border: none; cursor: pointer; }
+    .nav-row { border-top: 1px solid rgba(255,255,255,0.18); }
+    .nav { height: 50px; display: flex; align-items: center; gap: 35px; font-size: 15px; font-weight: 600; }
+    .nav a:hover { color: var(--gold); }
+    
+    .dashboard { display: block; min-height: calc(100vh - 126px); }
+    .dashboard-head { padding: 20px 0; color: #fff; background: var(--navy); }
+    .dashboard-head .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .dashboard-main { padding: 48px 0 70px; }
+    .dashboard-title { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 30px; }
+    .dashboard-title h1 { margin: 0; font-size: 43px; font-family: "Playfair Display", serif; }
+    .dashboard-title p { margin: 8px 0 0; color: var(--muted); }
+    
+    .account-list { padding: 25px; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+    .account-list h2 { margin: 0 0 18px; font-family: "DM Sans", sans-serif; font-size: 19px; letter-spacing: 0; }
+    
+    .account-detail { padding: 25px; background: #fff; border: 1px solid var(--line); border-radius: 6px; margin-bottom: 20px; }
+    .account-detail.checking { border-top: 4px solid var(--blue); }
+    .account-detail.savings { border-top: 4px solid #28744d; }
+    .account-detail.credit { border-top: 4px solid var(--gold); }
+    
+    .account-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+    .account-type { font-weight: 700; font-size: 16px; }
+    .account-number { color: var(--muted); font-size: 13px; }
+    .account-balance { margin-bottom: 20px; }
+    .balance-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .balance-amount { font-size: 28px; font-weight: 700; color: var(--ink); }
+    .account-info { margin-bottom: 20px; }
+    .info-row { display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--line); font-size: 13px; }
+    .info-row:first-of-type { border-top: 0; }
+    .account-actions { display: flex; gap: 10px; }
+    .account-btn { flex: 1; padding: 12px; background: #fff; border: 1px solid var(--line); border-radius: 2px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; }
+    .account-btn:hover { border-color: var(--gold); color: var(--gold); }
+    
+    .signout { padding: 8px 0; border: 0; color: var(--gold); background: transparent; font: inherit; font-weight: 700; cursor: pointer; }
+    
+    @media (max-width: 700px) {
+      .dashboard-title { display: block; }
+      .dashboard-title h1 { font-size: 35px; }
+      .topbar { flex-wrap: wrap; min-height: auto; padding: 15px 0; }
+      .nav { overflow-x: auto; gap: 20px; -webkit-overflow-scrolling: touch; }
+      .nav::-webkit-scrollbar { display: none; }
+      .container { width: calc(100% - 20px); }
+      .dashboard-main { padding: 30px 0; }
+      .account-actions { flex-wrap: wrap; }
+      .account-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+      .account-balance { word-wrap: break-word; overflow-wrap: break-word; }
+      .balance-amount { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+      <div class="utility">
+        <a href="support.html">Help & support</a>
+        <button class="signout">Sign out</button>
+      </div>
+    </div>
+    <div class="nav-row">
+      <nav class="container nav" aria-label="Main navigation">
+        <a href="dashboard-working.html">Overview</a>
+        <a href="accounts-working.html" style="color: var(--gold);">Accounts</a>
+        <a href="transfers-working.html">Transfers</a>
+        <a href="payments-working.html">Bill Pay</a>
+        <a href="cards-working.html">Cards</a>
+        <a href="goals-working.html">Goals</a>
+        <a href="statements-working.html">Statements</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="dashboard">
+    <div class="dashboard-head">
+      <div class="container">
+        <div class="dashboard-title">
+          <div>
+            <h1>My Accounts</h1>
+            <p>Manage and view all your accounts</p>
+          </div>
+          <p style="color: rgba(255,255,255,0.7);">As of July 15, 2026</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-main">
+      <div class="container">
+        <div class="account-detail checking">
+          <div class="account-header">
+            <div class="account-type">Everyday Checking</div>
+            <div class="account-number">**** 4821</div>
+          </div>
+          <div class="account-balance">
+            <div class="balance-label">Available Balance</div>
+            <div class="balance-amount">$12,458.42</div>
+          </div>
+          <div class="account-info">
+            <div class="info-row">
+              <span>Interest Rate</span>
+              <span>0.01% APY</span>
+            </div>
+            <div class="info-row">
+              <span>Interest YTD</span>
+              <span>$12.45</span>
+            </div>
+          </div>
+          <div class="account-actions">
+            <button class="account-btn">View Details</button>
+            <button class="account-btn">Transfer</button>
+            <button class="account-btn">Statement</button>
+          </div>
+        </div>
+        
+        <div class="account-detail savings">
+          <div class="account-header">
+            <div class="account-type">Goal Savings</div>
+            <div class="account-number">**** 9064</div>
+          </div>
+          <div class="account-balance">
+            <div class="balance-label">Available Balance</div>
+            <div class="balance-amount">$10,915.67</div>
+          </div>
+          <div class="account-info">
+            <div class="info-row">
+              <span>Interest Rate</span>
+              <span>2.50% APY</span>
+            </div>
+            <div class="info-row">
+              <span>Interest YTD</span>
+              <span>$272.89</span>
+            </div>
+          </div>
+          <div class="account-actions">
+            <button class="account-btn">View Details</button>
+            <button class="account-btn">Transfer</button>
+            <button class="account-btn">Statement</button>
+          </div>
+        </div>
+        
+        <div class="account-detail credit">
+          <div class="account-header">
+            <div class="account-type">Rewards Credit Card</div>
+            <div class="account-number">**** 1139</div>
+          </div>
+          <div class="account-balance">
+            <div class="balance-label">Current Balance</div>
+            <div class="balance-amount">$1,284.33</div>
+          </div>
+          <div class="account-info">
+            <div class="info-row">
+              <span>Credit Limit</span>
+              <span>$10,000.00</span>
+            </div>
+            <div class="info-row">
+              <span>Available Credit</span>
+              <span>$8,715.67</span>
+            </div>
+            <div class="info-row">
+              <span>Rewards Points</span>
+              <span>2,450</span>
+            </div>
+          </div>
+          <div class="account-actions">
+            <button class="account-btn">View Details</button>
+            <button class="account-btn">Make Payment</button>
+            <button class="account-btn">Statement</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

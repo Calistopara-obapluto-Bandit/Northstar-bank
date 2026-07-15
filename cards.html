@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cards - Northstar Bank</title>
+  <link rel="stylesheet" href="css/templatemo_style.css">
+  <link rel="stylesheet" href="css/page-styles.css">
+</head>
+<body>
+  <div class="dashboard show" id="dashboard" style="display: block !important;">
+    <header class="banking-header">
+      <div class="header-left">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+        <span class="user-greeting">Welcome back, <span id="memberName">Customer</span></span>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 17a2 2 0 100-4 2 2 0 000 4z"/>
+            <path d="M18 8a6 6 0 00-9.33-5"/>
+            <path d="M10 3v1"/>
+            <path d="M14 2v1"/>
+            <path d="M7 17H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2h-3"/>
+          </svg>
+        </button>
+        <button class="icon-btn" title="Settings">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="10" cy="10" r="3"/>
+            <path d="M10 2v2"/>
+            <path d="M10 16v2"/>
+            <path d="M2 10h2"/>
+            <path d="M16 10h2"/>
+            <path d="M4.93 4.93l1.41 1.41"/>
+            <path d="M13.66 13.66l1.41 1.41"/>
+            <path d="M4.93 15.07l1.41-1.41"/>
+            <path d="M13.66 6.34l1.41-1.41"/>
+          </svg>
+        </button>
+        <button class="signout" id="signOut" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <div class="banking-layout">
+      <aside class="banking-sidebar">
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="8" y="8" width="7" height="7"/>
+            </svg>
+            Overview
+          </a>
+          <a href="accounts.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="14" height="8" rx="2"/>
+              <path d="M9 7V4a3 3 0 00-6 0v3"/>
+            </svg>
+            Accounts
+          </a>
+          <a href="transfers.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 10l7-7m0 0l-7 7m7-7v12"/>
+            </svg>
+            Transfers
+          </a>
+          <a href="payments.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="5" width="14" height="10" rx="2"/>
+              <line x1="2" y1="10" x2="16" y2="10"/>
+            </svg>
+            Bill Pay
+          </a>
+          <a href="cards.html" class="nav-item active">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="5" width="14" height="8" rx="2"/>
+              <line x1="2" y1="9" x2="16" y2="9"/>
+            </svg>
+            Cards
+          </a>
+          <a href="goals.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="9" r="7"/>
+              <path d="M9 9l3 3"/>
+            </svg>
+            Goals
+          </a>
+          <a href="statements.html" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 00-2 2v16l4-4 4 4 4-4 4 4V4a2 2 0 00-2-2z"/>
+            </svg>
+            Statements
+          </a>
+        </nav>
+      </aside>
+
+      <main class="banking-main">
+        <section class="content-section active">
+          <div class="section-header">
+            <h1>My Cards</h1>
+            <p class="section-date">Manage your debit and credit cards</p>
+          </div>
+
+          <div class="cards-display">
+            <div class="credit-card-visual">
+              <div class="card-chip"></div>
+              <div class="card-number">4532 ••••• •••• 1139</div>
+              <div class="card-details">
+                <div class="card-holder">JOHN SMITH</div>
+                <div class="card-expiry">09/28</div>
+              </div>
+              <div class="card-brand">VISA</div>
+            </div>
+
+            <div class="card-info">
+              <div class="card-stats">
+                <div class="stat-item">
+                  <div class="stat-label">Current Balance</div>
+                  <div class="stat-value">$1,284.33</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Available Credit</div>
+                  <div class="stat-value">$8,715.67</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Credit Limit</div>
+                  <div class="stat-value">$10,000.00</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Rewards Points</div>
+                  <div class="stat-value">2,450</div>
+                </div>
+              </div>
+
+              <div class="card-actions">
+                <button class="card-action-btn">Lock Card</button>
+                <button class="card-action-btn">Set Alerts</button>
+                <button class="card-action-btn">View PIN</button>
+                <button class="card-action-btn">Request Replacement</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="recent-card-transactions">
+            <h3>Recent Card Transactions</h3>
+            <div class="card-transactions-list">
+              <div class="card-transaction">
+                <div class="transaction-icon">🛒</div>
+                <div class="transaction-details">
+                  <div class="transaction-name">Amazon.com</div>
+                  <div class="transaction-date">Jul 15, 2026</div>
+                </div>
+                <div class="transaction-amount negative">-$67.99</div>
+              </div>
+              <div class="card-transaction">
+                <div class="transaction-icon">⛽</div>
+                <div class="transaction-details">
+                  <div class="transaction-name">Shell Gas Station</div>
+                  <div class="transaction-date">Jul 14, 2026</div>
+                </div>
+                <div class="transaction-amount negative">-$45.00</div>
+              </div>
+              <div class="card-transaction">
+                <div class="transaction-icon">🍔</div>
+                <div class="transaction-details">
+                  <div class="transaction-name">McDonald's</div>
+                  <div class="transaction-date">Jul 13, 2026</div>
+                </div>
+                <div class="transaction-amount negative">-$12.45</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Access Modal -->
+  <div id="accessModal" class="access-modal">
+    <div class="modal-card">
+      <button class="close-modal" id="closeModal">&times;</button>
+      <h2>Sign In</h2>
+      <p>Access your Northstar Bank account</p>
+      <div class="info-note">For demo purposes, you can create a new account or sign in with an existing one.</div>
+      <div id="signinForm">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="signinEmail" placeholder="Enter your email">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="signinPassword" placeholder="Enter your password">
+        <div id="signinError" hidden style="color:#ef4444; font-size:13px; margin-top:8px;"></div>
+        <div class="modal-actions">
+          <button class="btn btn-primary access-submit" id="signInBtn">Sign In</button>
+          <button class="text-button" id="switchToSignup">Create Account</button>
+        </div>
+      </div>
+      <div id="signupForm" hidden>
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" id="fullName" placeholder="Enter your full name">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="email" placeholder="Enter your email">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" id="phone" placeholder="Enter your phone number">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="password" placeholder="Create a password">
+        <label class="form-label">Confirm Password</label>
+        <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm your password">
+        <div id="signupError" hidden style="color:#ef4444; font-size:13px; margin-top:8px;"></div>
+        <div class="modal-actions">
+          <button class="btn btn-primary access-submit" id="createAccountBtn">Create Account</button>
+          <button class="text-button" id="switchToSignin">Back to Sign In</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/vendor/jquery-1.11.2.min.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard-data.js"></script>
+</body>
+</html>

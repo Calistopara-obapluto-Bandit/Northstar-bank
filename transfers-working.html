@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transfers - Northstar Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="js/dashboard-interactions.js"></script>
+  <style>
+    :root { --navy: #071d3a; --blue: #0a4e9b; --gold: #f3b600; --cream: #f7f5f0; --ink: #152238; --muted: #5f6b7a; --line: #dfe4ea; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", Arial, sans-serif; background: var(--cream); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    
+    /* Header - matching index.html */
+    header { color: #fff; background: var(--navy); }
+    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; color: #fff; font-family: "Playfair Display", serif; font-size: 24px; letter-spacing: -0.7px; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--gold); color: var(--gold); font: 700 19px Georgia, serif; }
+    .utility { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+    .utility a:hover { color: var(--gold); }
+    .signin { padding: 10px 17px; color: var(--navy); background: var(--gold); font-weight: 700; border-radius: 2px; border: none; cursor: pointer; }
+    .nav-row { border-top: 1px solid rgba(255,255,255,0.18); }
+    .nav { height: 50px; display: flex; align-items: center; gap: 35px; font-size: 15px; font-weight: 600; }
+    .nav a:hover { color: var(--gold); }
+    
+    /* Dashboard Layout */
+    .dashboard { display: block; min-height: calc(100vh - 126px); }
+    .dashboard-head { padding: 20px 0; color: #fff; background: var(--navy); }
+    .dashboard-head .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .dashboard-main { padding: 48px 0 70px; }
+    .dashboard-title { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 30px; }
+    .dashboard-title h1 { margin: 0; font-size: 43px; font-family: "Playfair Display", serif; }
+    .dashboard-title p { margin: 8px 0 0; color: var(--muted); }
+    
+    .section-header { margin-bottom: 32px; }
+    .section-header h1 { font-size: 43px; font-family: "Playfair Display", serif; margin-bottom: 8px; letter-spacing: -1.7px; }
+    .section-date { color: var(--muted); font-size: 14px; }
+    
+    .transfer-form { background: #fff; padding: 28px; border-radius: 6px; border: 1px solid var(--line); max-width: 600px; margin-bottom: 32px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-weight: 700; color: var(--ink); margin-bottom: 8px; font-size: 14px; }
+    .form-select, .form-input { width: 100%; padding: 13px; border: 1px solid #bdc8d6; border-radius: 3px; font: inherit; }
+    .form-select:focus, .form-input:focus { outline: 3px solid #c9ddf5; border-color: var(--blue); }
+    .submit-btn { width: 100%; padding: 14px 23px; color: #0d213f; background: var(--gold); font-size: 15px; font-weight: 700; border-radius: 2px; border: none; cursor: pointer; transition: 0.2s; }
+    .submit-btn:hover { background: #ffd03c; }
+    
+    .recent-transfers { background: #fff; padding: 25px; border-radius: 6px; border: 1px solid var(--line); }
+    .recent-transfers h3 { margin: 0 0 18px; font-family: "DM Sans", sans-serif; font-size: 19px; }
+    .transfer-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-top: 1px solid var(--line); }
+    .transfer-item:first-of-type { border-top: 0; }
+    .transfer-info { flex: 1; }
+    .transfer-title { font-weight: 700; color: var(--ink); }
+    .transfer-date { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .transfer-amount { font-weight: 700; font-size: 18px; }
+    .transfer-amount.positive { color: #28744d; }
+    .transfer-amount.negative { color: var(--ink); }
+    
+    /* Sign out button */
+    .signout { padding: 8px 0; border: 0; color: var(--gold); background: transparent; font: inherit; font-weight: 700; cursor: pointer; }
+    
+    @media (max-width: 700px) {
+      .dashboard-title { display: block; }
+      .dashboard-title h1 { font-size: 35px; }
+      .topbar { flex-wrap: wrap; min-height: auto; padding: 15px 0; }
+      .nav { overflow-x: auto; gap: 20px; -webkit-overflow-scrolling: touch; }
+      .nav::-webkit-scrollbar { display: none; }
+      .container { width: calc(100% - 20px); }
+      .dashboard-main { padding: 30px 0; }
+      .transfer-form { max-width: 100%; }
+      .transfer-item { flex-wrap: wrap; gap: 10px; }
+      .transfer-amount { width: 100%; text-align: left; }
+      .transfer-title, .transfer-date { word-wrap: break-word; overflow-wrap: break-word; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+      <div class="utility">
+        <a href="support.html">Help & support</a>
+        <button class="signout">Sign out</button>
+      </div>
+    </div>
+    <div class="nav-row">
+      <nav class="container nav" aria-label="Main navigation">
+        <a href="dashboard-working.html">Overview</a>
+        <a href="accounts-working.html">Accounts</a>
+        <a href="transfers-working.html" style="color: var(--gold);">Transfers</a>
+        <a href="payments-working.html">Bill Pay</a>
+        <a href="cards-working.html">Cards</a>
+        <a href="goals-working.html">Goals</a>
+        <a href="statements-working.html">Statements</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="dashboard">
+    <div class="dashboard-head">
+      <div class="container">
+        <div class="dashboard-title">
+          <div>
+            <h1>Transfer Money</h1>
+            <p>Move money between your accounts</p>
+          </div>
+          <p style="color: rgba(255,255,255,0.7);">As of July 15, 2026</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-main">
+      <div class="container">
+        
+        <div class="transfer-form">
+          <div class="form-group">
+            <label>From Account</label>
+            <select class="form-select">
+              <option>Everyday Checking (**** 4821) - $12,458.42</option>
+              <option>Goal Savings (**** 9064) - $10,915.67</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>To Account</label>
+            <select class="form-select">
+              <option>Goal Savings (**** 9064)</option>
+              <option>Everyday Checking (**** 4821)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Amount</label>
+            <input type="text" class="form-input" placeholder="0.00">
+          </div>
+          <button class="submit-btn">Transfer Money</button>
+        </div>
+        
+        <div class="recent-transfers">
+          <h3>Recent Transfers</h3>
+          <div class="transfer-item">
+            <div class="transfer-info">
+              <div class="transfer-title">Transfer to Savings</div>
+              <div class="transfer-date">Jul 8, 2026</div>
+            </div>
+            <div class="transfer-amount negative">-$500.00</div>
+          </div>
+          <div class="transfer-item">
+            <div class="transfer-info">
+              <div class="transfer-title">Transfer from Savings</div>
+              <div class="transfer-date">Jul 8, 2026</div>
+            </div>
+            <div class="transfer-amount positive">+$500.00</div>
+          </div>
+          <div class="transfer-item">
+            <div class="transfer-info">
+              <div class="transfer-title">Transfer to Savings</div>
+              <div class="transfer-date">Jun 25, 2026</div>
+            </div>
+            <div class="transfer-amount negative">-$1,000.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

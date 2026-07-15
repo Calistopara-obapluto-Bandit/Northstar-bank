@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Northstar Bank — Banking made clear.">
+  <title>Northstar Bank | Banking made clear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#071d3a;--blue:#0a4e9b;--gold:#f3b600;--cream:#f7f5f0;--ink:#152238;--muted:#5f6b7a;--line:#dfe4ea}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:"DM Sans",Arial,sans-serif;background:var(--cream)}a{color:inherit;text-decoration:none}.container{width:min(1160px,calc(100% - 40px));margin:auto}.notice{background:var(--gold);padding:10px 0;font-size:13px;font-weight:600;text-align:center;color:#302400}header{color:#fff;background:var(--navy)}.topbar{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;color:#fff;font-family:"Playfair Display",serif;font-size:24px;letter-spacing:-.7px}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border:2px solid var(--gold);color:var(--gold);font:700 19px Georgia,serif}.utility{display:flex;align-items:center;gap:22px;font-size:14px}.utility a:hover,.nav a:hover{color:var(--gold)}.signin{padding:10px 17px;color:var(--navy);background:var(--gold);font-weight:700;border-radius:2px}.nav-row{border-top:1px solid rgba(255,255,255,.18)}.nav{height:50px;display:flex;align-items:center;gap:35px;font-size:15px;font-weight:600}.hero{background:linear-gradient(100deg,rgba(7,29,58,.98) 0%,rgba(7,29,58,.91) 48%,rgba(7,29,58,.32)),url('img/banner_bg.jpg') center/cover;color:white;padding:88px 0 96px}.hero-content{max-width:635px}.eyebrow{margin:0 0 13px;color:var(--gold);font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase}h1,h2,h3,p{margin-top:0}h1{margin-bottom:18px;font-family:"Playfair Display",serif;font-size:clamp(42px,5.5vw,68px);line-height:1.04;letter-spacing:-1.7px}.hero p:not(.eyebrow){max-width:560px;margin-bottom:29px;font-size:18px;line-height:1.6;color:#e5eaf2}.button{display:inline-block;padding:14px 23px;color:#0d213f;background:var(--gold);font-size:15px;font-weight:700;border-radius:2px;transition:.2s}.button:hover{background:#ffd03c;transform:translateY(-1px)}.quick{background:#fff;box-shadow:0 9px 24px rgba(8,28,54,.11)}.quick-grid{display:grid;grid-template-columns:repeat(4,1fr)}.quick a{padding:24px 22px;border-right:1px solid var(--line);font-weight:700}.quick a:last-child{border:0}.quick a span{display:block;margin-top:6px;color:var(--muted);font-size:13px;font-weight:400}.quick a:hover{color:var(--blue);background:#f9fbff}section{padding:86px 0}.section-label{color:#a36c00;font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}h2{margin:9px 0 14px;font-family:"Playfair Display",serif;font-size:38px;line-height:1.15;letter-spacing:-.8px}.intro{max-width:600px;color:var(--muted);font-size:17px;line-height:1.65}.products{background:#fff}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px}.card{min-height:260px;padding:29px;border:1px solid var(--line);border-radius:3px;background:#fff}.card:hover{box-shadow:0 12px 30px rgba(7,29,58,.1)}.icon{display:grid;place-items:center;width:43px;height:43px;margin-bottom:23px;color:var(--blue);border-radius:50%;background:#e7f0fb;font-size:21px;font-weight:700}h3{margin-bottom:10px;font-size:21px}.card p{color:var(--muted);line-height:1.55}.arrow{color:var(--blue);font-size:14px;font-weight:700}.feature{background:var(--cream)}.feature-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:center}.feature-panel{padding:42px;color:#fff;background:var(--blue);border-radius:3px;box-shadow:16px 16px 0 var(--gold)}.feature-panel h3{font-family:"Playfair Display",serif;font-size:30px}.feature-panel p{line-height:1.65;color:#e6f1ff}.checklist{padding:0;list-style:none}.checklist li{margin:14px 0;font-weight:600}.checklist li::before{content:"✓";display:inline-grid;place-items:center;width:23px;height:23px;margin-right:11px;color:#fff;background:var(--blue);border-radius:50%;font-size:13px}.security{padding:64px 0;color:#fff;background:var(--navy)}.security .container{display:flex;justify-content:space-between;gap:30px;align-items:center}.security h2{margin:0 0 8px;font-size:31px}.security p{margin:0;color:#c7d3e3}.security a{color:var(--gold);font-weight:700;white-space:nowrap}footer{padding:48px 0 26px;color:#d7e0eb;background:#06162c}.footer-top{display:flex;justify-content:space-between;gap:35px;padding-bottom:35px;border-bottom:1px solid rgba(255,255,255,.17)}footer .brand{align-self:start}.footer-links{display:flex;gap:54px}.footer-links h4{margin:0 0 12px;color:#fff;font-size:14px}.footer-links a{display:block;margin:8px 0;font-size:13px}.footer-links a:hover{color:var(--gold)}.fine{margin:22px 0 0;color:#91a1b5;font-size:12px;line-height:1.55}@media(max-width:700px){.container{width:min(100% - 32px,1160px)}.topbar{min-height:66px}.utility a:not(.signin),.nav-row{display:none}.brand{font-size:21px}.hero{padding:66px 0 74px}.quick-grid,.cards,.feature-layout{grid-template-columns:1fr}.quick a{border-right:0;border-bottom:1px solid var(--line)}.quick a:last-child{border-bottom:0}section{padding:62px 0}h2{font-size:32px}.feature-layout{gap:38px}.feature-panel{padding:30px;box-shadow:10px 10px 0 var(--gold)}.security .container,.footer-top{display:block}.security a{display:inline-block;margin-top:18px}.footer-links{margin-top:33px;gap:32px;flex-wrap:wrap}}
+  </style>
+  <style>
+    /* Premium visual refinements */
+    .hero { position:relative; overflow:hidden; min-height:510px; display:flex; align-items:center; background-image:linear-gradient(100deg,rgba(7,29,58,.99) 0%,rgba(7,29,58,.93) 51%,rgba(7,29,58,.55)),url('img/banner_bg.jpg'); }
+    .hero::before { content:""; position:absolute; right:-110px; bottom:-180px; width:620px; height:620px; border:1px solid rgba(243,182,0,.45); border-radius:50%; box-shadow:0 0 0 55px rgba(243,182,0,.07),0 0 0 110px rgba(243,182,0,.04); }
+    .hero::after { display:none; }
+    .hero-content { position:relative; z-index:2; }
+    .hero h1 { max-width:570px; text-wrap:balance; }
+    .quick { position:relative; z-index:3; margin-top:-29px; border-radius:4px; }
+    .card { position:relative; overflow:hidden; transition:transform .25s,box-shadow .25s; }
+    .card::after { content:""; position:absolute; top:0; left:0; width:100%; height:4px; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform .25s; }
+    .card:hover { transform:translateY(-6px); } .card:hover::after { transform:scaleX(1); }
+    .feature-panel { position:relative; overflow:hidden; } .feature-panel::after { content:""; position:absolute; width:190px; height:190px; right:-85px; bottom:-95px; border:1px solid rgba(255,255,255,.27); border-radius:50%; } .feature-panel > * { position:relative; z-index:1; }
+    @media(max-width:900px) { .hero::after { right:25px; opacity:.72; } }
+    @media(max-width:700px) { .hero { min-height:0; } .hero::after,.hero::before { display:none; } .quick { margin-top:0; border-radius:0; } }
+  </style>
+  <style>
+    .access-trigger { cursor:pointer; border:0; font:inherit; }
+    .access-modal { position:fixed; inset:0; z-index:20; display:none; place-items:center; padding:20px; background:rgba(4,17,37,.72); }
+    .access-modal.open { display:grid; } .modal-card { width:min(460px,100%); padding:34px; background:#fff; border-radius:8px; box-shadow:0 25px 70px rgba(0,0,0,.32); }
+    .modal-card h2 { font-size:30px; } .modal-card p { color:var(--muted); line-height:1.55; } .info-note { padding:12px; border-left:4px solid var(--gold); background:#fff7dc; color:#574300!important; font-size:13px; }
+    .form-label { display:block; margin:18px 0 7px; font-size:14px; font-weight:700; } .form-input { width:100%; padding:13px; border:1px solid #bdc8d6; border-radius:3px; font:inherit; }
+    .form-input:focus { outline:3px solid #c9ddf5; border-color:var(--blue); } .modal-actions { display:flex; gap:13px; margin-top:22px; align-items:center; } .text-button { padding:0; border:0; color:var(--blue); background:transparent; font:inherit; font-weight:700; cursor:pointer; }
+    .close-modal { float:right; padding:2px 0 8px 16px; border:0; color:#5d6875; background:transparent; font-size:24px; cursor:pointer; }
+    .dashboard { display:none; min-height:100vh; background:#f2f5f9; } .dashboard.show { display:block; } .dashboard-head { padding:20px 0; color:#fff; background:var(--navy); } .dashboard-head .container { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .dashboard-main { padding:48px 0 70px; } .dashboard-title { display:flex; justify-content:space-between; gap:20px; align-items:end; } .dashboard-title h1 { margin:0; font-size:43px; } .dashboard-title p { margin:8px 0 0; color:var(--muted); }
+    .dash-grid { display:grid; grid-template-columns:1.4fr .9fr; gap:25px; margin-top:30px; } .account-list,.activity,.goal-card { padding:25px; background:#fff; border:1px solid var(--line); border-radius:6px; }
+    .account-list h2,.activity h2,.goal-card h2 { margin:0 0 18px; font-family:"DM Sans",sans-serif; font-size:19px; letter-spacing:0; } .account { display:flex; justify-content:space-between; gap:15px; padding:18px 0; border-top:1px solid var(--line); } .account:first-of-type { border-top:0; } .account-type { font-weight:700; } .account-number,.activity-item small { display:block; margin-top:4px; color:var(--muted); font-size:13px; } .balance { font-size:18px; font-weight:700; text-align:right; }.available { display:block; margin-top:4px; color:var(--muted); font-size:12px; font-weight:400; }
+    .activity-item { display:flex; justify-content:space-between; gap:10px; padding:15px 0; border-top:1px solid var(--line); }.activity-item:first-of-type { border-top:0; }.amount { font-weight:700; }.goal-card { margin-top:25px; color:#fff; background:var(--blue); border:0; }.goal-card p { color:#e5f0ff; }.progress { height:9px; overflow:hidden; background:rgba(255,255,255,.28); border-radius:99px; }.progress span { display:block; width:68%; height:100%; background:var(--gold); }
+    .signout { padding:8px 0; border:0; color:var(--gold); background:transparent; font:inherit; font-weight:700; cursor:pointer; }
+    .admin-nav { display:flex; gap:22px; align-items:center; color:#b9c9dc; font-size:14px; font-weight:700; }.admin-nav span:first-child { color:var(--gold); }.metric-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:30px 0; }.metric { padding:21px; background:#fff; border:1px solid var(--line); border-radius:6px; }.metric small { display:block; color:var(--muted); font-weight:700; }.metric strong { display:block; margin-top:9px; font-size:27px; }.metric em { display:block; margin-top:6px; color:#28744d; font-size:12px; font-style:normal; font-weight:700; }.admin-table { width:100%; border-collapse:collapse; }.admin-table th,.admin-table td { padding:15px 8px; border-top:1px solid var(--line); text-align:left; font-size:14px; }.admin-table th { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.5px; }.status { display:inline-block; padding:4px 8px; border-radius:99px; color:#17663c; background:#e1f5e8; font-size:12px; font-weight:700; }.status.review { color:#8b5a00; background:#fff0c8; }
+    @media(max-width:700px) { .dash-grid { grid-template-columns:1fr; }.dashboard-title { display:block; }.dashboard-title h1 { font-size:35px; }.modal-card { padding:25px; }.metric-grid { grid-template-columns:1fr 1fr; }.admin-nav span:not(:first-child) { display:none; } }
+  </style>
+  <link rel="stylesheet" href="css/templatemo-style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/mobile-responsive.css">
+</head>
+<body>
+
+  <header><div class="container topbar"><a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a><div class="utility"><a href="support.html">Help &amp; support</a><a href="locations.html">Find a location</a><button class="signin access-trigger" type="button">Sign in</button></div></div><div class="nav-row"><nav class="container nav" aria-label="Main navigation"><a href="products.html">Banking</a><a href="borrow.html">Borrowing</a><a href="invest.html">Investing</a><a href="security.html">Security</a><a href="support.html">Support</a></nav></div></header>
+  <main id="home"><section class="hero"><div class="container hero-content"><p class="eyebrow">A clearer way to bank</p><h1>Make more of what’s next.</h1><p>Thoughtful tools, real guidance, and straightforward accounts to help you build confidence in every financial decision.</p><a class="button" href="products.html">Find the right account</a></div></section><div class="quick"><div class="container quick-grid"><a href="products.html">Open an account<span>Checking, savings &amp; more</span></a><a href="borrow.html">Explore home loans<span>Options that fit your next move</span></a><a href="invest.html">Plan for tomorrow<span>Investing and retirement guidance</span></a><a href="support.html">Get support<span>We’re here when you need us</span></a></div></div>
+  <section class="products" id="products"><div class="container"><span class="section-label">Everyday banking</span><h2>Accounts that work around your life.</h2><p class="intro">Start with what matters today, then use simple tools and human support to keep moving forward.</p><div class="cards"><article class="card"><div class="icon">$</div><h3>Clear Checking</h3><p>A simple, easy-to-manage account with the features you need for everyday spending.</p><a class="arrow" href="support.html">Learn about checking →</a></article><article class="card"><div class="icon">↗</div><h3>Grow Savings</h3><p>Put your goals first with an account built for planned purchases and unexpected moments.</p><a class="arrow" href="support.html">Learn about savings →</a></article><article class="card" id="borrow"><div class="icon">⌂</div><h3>Home Lending</h3><p>Get practical guidance from prequalification through closing, all on your timeline.</p><a class="arrow" href="borrow.html">Explore home loans →</a></article></div></div></section>
+  <section class="feature" id="invest"><div class="container feature-layout"><div><span class="section-label">Built for your goals</span><h2>Feel prepared for the road ahead.</h2><p class="intro">Whether you’re planning a milestone or simply getting organized, Northstar gives you a clearer view of your money.</p><ul class="checklist"><li>Personalized goal tracking</li><li>Easy-to-understand financial guidance</li><li>Support from real people</li></ul></div><aside class="feature-panel"><p class="eyebrow">Your next step</p><h3>Ready to make a plan?</h3><p>Explore the tools and conversations that can help turn your goals into a practical path forward.</p><a class="button" href="support.html">Talk through your goals</a></aside></div></section>
+  <section class="security" id="security"><div class="container"><div><h2>Your security is our priority.</h2><p>Learn how to recognize scams and protect your information online.</p></div><a href="support.html">Visit the security center →</a></div></section></main>
+  <footer id="support"><div class="container"><div class="footer-top"><a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a><div class="footer-links"><div><h4>Products</h4><a href="checking.html">Checking</a><a href="savings.html">Savings</a><a href="borrow.html">Home lending</a></div><div><h4>Support</h4><a href="support.html">Contact us</a><a href="security.html">Security center</a><a id="locations" href="locations.html">Locations</a></div></div></div><p class="fine">© 2026 Northstar Bank. All rights reserved.</p></div></footer>
+  <div class="access-modal" id="accessModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="accessTitle">
+      <button class="close-modal" id="closeModal" type="button" aria-label="Close">&times;</button>
+      
+      <!-- Sign In Form -->
+      <div id="signinForm" style="display: block;">
+        <h2 id="accessTitle">Sign in to your account</h2>
+        <p>Access your Northstar Bank account to view balances, transfer funds, and manage your finances.</p>
+        
+        <label class="form-label" for="signinEmail">Email address</label>
+        <input class="form-input" id="signinEmail" type="email" placeholder="you@example.com" autocomplete="email">
+        
+        <label class="form-label" for="signinPassword">Password</label>
+        <input class="form-input" id="signinPassword" type="password" placeholder="Enter your password" autocomplete="current-password">
+        
+        <p id="signinError" class="info-note" hidden></p>
+        
+        <div class="modal-actions">
+          <button class="button" id="signInBtn" type="button">Sign in</button>
+          <button class="text-button" id="switchToSignup" type="button">Don't have an account? Sign up</button>
+        </div>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div id="signupForm" style="display: none;">
+        <h2>Create your account</h2>
+        <p>Join Northstar Bank to access online and mobile banking, view your accounts, and manage your finances.</p>
+        
+        <label class="form-label" for="fullName">Full name</label>
+        <input class="form-input" id="fullName" type="text" placeholder="John Smith" autocomplete="name">
+        
+        <label class="form-label" for="email">Email address</label>
+        <input class="form-input" id="email" type="email" placeholder="you@example.com" autocomplete="email">
+        
+        <label class="form-label" for="phone">Phone number</label>
+        <input class="form-input" id="phone" type="tel" placeholder="(555) 000-0000" autocomplete="tel">
+        
+        <label class="form-label" for="password">Password</label>
+        <input class="form-input" id="password" type="password" placeholder="At least 8 characters" minlength="8" autocomplete="new-password">
+        
+        <label class="form-label" for="confirmPassword">Confirm password</label>
+        <input class="form-input" id="confirmPassword" type="password" placeholder="Re-enter your password" minlength="8" autocomplete="new-password">
+        
+        <p id="signupError" class="info-note" hidden></p>
+        
+        <div class="modal-actions">
+          <button class="button" id="createAccountBtn" type="button">Create account</button>
+          <button class="text-button" id="switchToSignin" type="button">Already have an account? Sign in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard" id="dashboard">
+    <header class="banking-header">
+      <div class="header-left">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+        <span class="user-greeting">Welcome back, <span id="memberName">Customer</span></span>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 17a2 2 0 100-4 2 2 0 000 4z"/>
+            <path d="M18 8a6 6 0 00-9.33-5"/>
+            <path d="M10 3v1"/>
+            <path d="M14 2v1"/>
+            <path d="M7 17H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2h-3"/>
+          </svg>
+        </button>
+        <button class="icon-btn" title="Settings">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="10" cy="10" r="3"/>
+            <path d="M10 2v2"/>
+            <path d="M10 16v2"/>
+            <path d="M2 10h2"/>
+            <path d="M16 10h2"/>
+            <path d="M4.93 4.93l1.41 1.41"/>
+            <path d="M13.66 13.66l1.41 1.41"/>
+            <path d="M4.93 15.07l1.41-1.41"/>
+            <path d="M13.66 6.34l1.41-1.41"/>
+          </svg>
+        </button>
+        <button class="signout" id="signOut" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <div class="banking-layout">
+      <aside class="banking-sidebar">
+        <nav class="sidebar-nav">
+          <a href="dashboard.html" class="nav-item active">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="8" y="8" width="7" height="7"/>
+            </svg>
+            Overview
+          </a>
+          <a href="accounts.html" class="nav-item">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="14" height="8" rx="2"/>
+              <path d="M9 7V4a3 3 0 00-6 0v3"/>
+            </svg>
+            Accounts
+          </a>
+          <a href="transfers.html" class="nav-item">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 10l7-7m0 0l-7 7m7-7v12"/>
+            </svg>
+            Transfers
+          </a>
+          <a href="payments.html" class="nav-item">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="5" width="14" height="10" rx="2"/>
+              <line x1="2" y1="10" x2="16" y2="10"/>
+            </svg>
+            Bill Pay
+          </a>
+          <a href="cards.html" class="nav-item">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="5" width="14" height="8" rx="2"/>
+              <line x1="2" y1="9" x2="16" y2="9"/>
+            </svg>
+            Cards
+          </a>
+          <a href="goals.html" class="nav-item">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="9" r="7"/>
+              <path d="M9 9l3 3"/>
+            </svg>
+            Goals
+          </a>
+          <a href="statements.html" class="nav-item">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 00-2 2v16l4-4 4 4 4-4 4 4V4a2 2 0 00-2-2z"/>
+            </svg>
+            Statements
+          </a>
+        </nav>
+      </aside>
+
+      <main class="banking-main">
+        <!-- Overview Section -->
+        <section class="content-section active" id="overview-section">
+          <div class="section-header">
+            <h1>Account Overview</h1>
+            <p class="section-date">As of July 15, 2026</p>
+          </div>
+
+          <div class="balance-cards">
+            <div class="balance-card primary">
+              <div class="card-header">
+                <span class="card-type">Total Balance</span>
+                <span class="card-trend up">+2.4%</span>
+              </div>
+              <div class="card-amount">$19,734.53</div>
+              <div class="card-sub">Across all accounts</div>
+            </div>
+            <div class="balance-card">
+              <div class="card-header">
+                <span class="card-type">Checking</span>
+                <span class="card-trend">+$1,250</span>
+              </div>
+              <div class="card-amount">$8,450.20</div>
+              <div class="card-sub">Available: $8,450.20</div>
+            </div>
+            <div class="balance-card">
+              <div class="card-header">
+                <span class="card-type">Savings</span>
+                <span class="card-trend up">+$850</span>
+              </div>
+              <div class="card-amount">$10,000.00</div>
+              <div class="card-sub">Available: $10,000.00</div>
+            </div>
+            <div class="balance-card">
+              <div class="card-header">
+                <span class="card-type">Credit Card</span>
+                <span class="card-trend down">-$420</span>
+              </div>
+              <div class="card-amount">$1,284.33</div>
+              <div class="card-sub">Available: $8,715.67</div>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <button class="action-btn primary">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 10l7-7m0 0l-7 7m7-7v12"/>
+              </svg>
+              Transfer Money
+            </button>
+            <button class="action-btn">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 9l7-7 7 7"/>
+              </svg>
+              Deposit Check
+            </button>
+            <button class="action-btn">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="5" width="14" height="10" rx="2"/>
+                <line x1="2" y1="10" x2="16" y2="10"/>
+              </svg>
+              Pay Bills
+            </button>
+            <button class="action-btn">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+              </svg>
+              Send Message
+            </button>
+          </div>
+
+          <div class="content-grid">
+            <div class="transactions-panel">
+              <div class="panel-header">
+                <h2>Recent Transactions</h2>
+                <button class="text-btn">View All</button>
+              </div>
+              <div class="transaction-list">
+                <div class="transaction-item">
+                  <div class="transaction-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293a1 1 0 001.414 1.414L10 15"/>
+                    </svg>
+                  </div>
+                  <div class="transaction-details">
+                    <div class="transaction-name">Market Square Grocers</div>
+                    <div class="transaction-meta">Today • Debit Card</div>
+                  </div>
+                  <div class="transaction-amount negative">-$84.19</div>
+                </div>
+                <div class="transaction-item">
+                  <div class="transaction-icon deposit">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 5v14M5 9l7-7 7 7"/>
+                    </svg>
+                  </div>
+                  <div class="transaction-details">
+                    <div class="transaction-name">Payroll Deposit</div>
+                    <div class="transaction-meta">Yesterday • Direct Deposit</div>
+                  </div>
+                  <div class="transaction-amount positive">+$2,480.00</div>
+                </div>
+                <div class="transaction-item">
+                  <div class="transaction-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                  </div>
+                  <div class="transaction-details">
+                    <div class="transaction-name">City Utilities</div>
+                    <div class="transaction-meta">Jul 12 • ACH</div>
+                  </div>
+                  <div class="transaction-amount negative">-$126.40</div>
+                </div>
+                <div class="transaction-item">
+                  <div class="transaction-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293a1 1 0 001.414 1.414L10 15"/>
+                    </svg>
+                  </div>
+                  <div class="transaction-details">
+                    <div class="transaction-name">Amazon Prime</div>
+                    <div class="transaction-meta">Jul 11 • Credit Card</div>
+                  </div>
+                  <div class="transaction-amount negative">-$14.99</div>
+                </div>
+                <div class="transaction-item">
+                  <div class="transaction-icon deposit">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 5v14M5 9l7-7 7 7"/>
+                    </svg>
+                  </div>
+                  <div class="transaction-details">
+                    <div class="transaction-name">Interest Credit</div>
+                    <div class="transaction-meta">Jul 10 • Automatic</div>
+                  </div>
+                  <div class="transaction-amount positive">+$12.50</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="spending-panel">
+              <div class="panel-header">
+                <h2>Spending Overview</h2>
+                <select class="month-select">
+                  <option>July 2026</option>
+                  <option>June 2026</option>
+                  <option>May 2026</option>
+                </select>
+              </div>
+              <div class="spending-chart">
+                <div class="chart-bar">
+                  <div class="bar-label">Groceries</div>
+                  <div class="bar-container">
+                    <div class="bar-fill" style="width: 45%"></div>
+                  </div>
+                  <div class="bar-value">$624</div>
+                </div>
+                <div class="chart-bar">
+                  <div class="bar-label">Utilities</div>
+                  <div class="bar-container">
+                    <div class="bar-fill" style="width: 28%"></div>
+                  </div>
+                  <div class="bar-value">$389</div>
+                </div>
+                <div class="chart-bar">
+                  <div class="bar-label">Dining</div>
+                  <div class="bar-container">
+                    <div class="bar-fill" style="width: 35%"></div>
+                  </div>
+                  <div class="bar-value">$487</div>
+                </div>
+                <div class="chart-bar">
+                  <div class="bar-label">Transportation</div>
+                  <div class="bar-container">
+                    <div class="bar-fill" style="width: 22%"></div>
+                  </div>
+                  <div class="bar-value">$305</div>
+                </div>
+                <div class="chart-bar">
+                  <div class="bar-label">Entertainment</div>
+                  <div class="bar-container">
+                    <div class="bar-fill" style="width: 18%"></div>
+                  </div>
+                  <div class="bar-value">$250</div>
+                </div>
+              </div>
+              <div class="spending-total">
+                <span>Total Spending</span>
+                <span class="total-amount">$2,055.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="goals-section">
+            <div class="panel-header">
+              <h2>Savings Goals</h2>
+              <button class="text-btn">+ Add Goal</button>
+            </div>
+            <div class="goals-grid">
+              <div class="goal-item">
+                <div class="goal-icon">🏠</div>
+                <div class="goal-info">
+                  <div class="goal-name">Home Down Payment</div>
+                  <div class="goal-progress">
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width: 68%"></div>
+                    </div>
+                  </div>
+                  <div class="goal-amounts">
+                    <span>$13,600</span>
+                    <span class="goal-target">of $20,000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="goal-item">
+                <div class="goal-icon">🚗</div>
+                <div class="goal-info">
+                  <div class="goal-name">New Car</div>
+                  <div class="goal-progress">
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width: 42%"></div>
+                    </div>
+                  </div>
+                  <div class="goal-amounts">
+                    <span>$4,200</span>
+                    <span class="goal-target">of $10,000</span>
+                  </div>
+                </div>
+              </div>
+              <div class="goal-item">
+                <div class="goal-icon">🌴</div>
+                <div class="goal-info">
+                  <div class="goal-name">Vacation Fund</div>
+                  <div class="goal-progress">
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width: 85%"></div>
+                    </div>
+                  </div>
+                  <div class="goal-amounts">
+                    <span>$2,550</span>
+                    <span class="goal-target">of $3,000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Transfers Section -->
+        <section class="content-section" id="transfers-section">
+          <div class="section-header">
+            <h1>Transfer Money</h1>
+            <p class="section-date">Move money between your accounts or to others</p>
+          </div>
+
+          <div class="transfer-form">
+            <div class="form-group">
+              <label>From Account</label>
+              <select class="form-select">
+                <option>Northstar Everyday Checking (****4821) - $8,450.20</option>
+                <option>Northstar Goal Savings (****9064) - $10,000.00</option>
+                <option>Northstar Rewards Card (****1139) - $1,284.33</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>To Account</label>
+              <select class="form-select">
+                <option>Northstar Goal Savings (****9064) - $10,000.00</option>
+                <option>Northstar Everyday Checking (****4821) - $8,450.20</option>
+                <option>External Account</option>
+                <option>Another Person</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <div class="amount-input">
+                <span class="currency-symbol">$</span>
+                <input type="text" class="form-input" placeholder="0.00" value="500.00">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Memo (Optional)</label>
+              <input type="text" class="form-input" placeholder="Add a note for your records">
+            </div>
+            <button class="submit-btn">Transfer Funds</button>
+          </div>
+
+          <div class="recent-transfers">
+            <h3>Recent Transfers</h3>
+            <div class="transfer-history">
+              <div class="transfer-item">
+                <div class="transfer-info">
+                  <div class="transfer-title">Transfer to Savings</div>
+                  <div class="transfer-date">Jul 14, 2026</div>
+                </div>
+                <div class="transfer-amount">-$500.00</div>
+              </div>
+              <div class="transfer-item">
+                <div class="transfer-info">
+                  <div class="transfer-title">Transfer from Checking</div>
+                  <div class="transfer-date">Jul 10, 2026</div>
+                </div>
+                <div class="transfer-amount positive">+$250.00</div>
+              </div>
+              <div class="transfer-item">
+                <div class="transfer-info">
+                  <div class="transfer-title">External Transfer to John Smith</div>
+                  <div class="transfer-date">Jul 5, 2026</div>
+                </div>
+                <div class="transfer-amount">-$150.00</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Accounts Section -->
+        <section class="content-section" id="accounts-section">
+          <div class="section-header">
+            <h1>My Accounts</h1>
+            <p class="section-date">Manage and view all your accounts</p>
+          </div>
+
+          <div class="accounts-detail">
+            <div class="account-detail-card checking">
+              <div class="account-header">
+                <div class="account-type">Everyday Checking</div>
+                <div class="account-number">**** 4821</div>
+              </div>
+              <div class="account-balance">
+                <div class="balance-label">Available Balance</div>
+                <div class="balance-amount">$8,450.20</div>
+              </div>
+              <div class="account-actions">
+                <button class="account-btn">View Details</button>
+                <button class="account-btn">Transfer</button>
+                <button class="account-btn">Statement</button>
+              </div>
+            </div>
+
+            <div class="account-detail-card savings">
+              <div class="account-header">
+                <div class="account-type">Goal Savings</div>
+                <div class="account-number">**** 9064</div>
+              </div>
+              <div class="account-balance">
+                <div class="balance-label">Available Balance</div>
+                <div class="balance-amount">$10,000.00</div>
+              </div>
+              <div class="account-info">
+                <div class="info-row">
+                  <span>Interest Rate</span>
+                  <span>2.50% APY</span>
+                </div>
+                <div class="info-row">
+                  <span>Interest YTD</span>
+                  <span>$124.50</span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <button class="account-btn">View Details</button>
+                <button class="account-btn">Transfer</button>
+                <button class="account-btn">Statement</button>
+              </div>
+            </div>
+
+            <div class="account-detail-card credit">
+              <div class="account-header">
+                <div class="account-type">Rewards Credit Card</div>
+                <div class="account-number">**** 1139</div>
+              </div>
+              <div class="account-balance">
+                <div class="balance-label">Current Balance</div>
+                <div class="balance-amount">$1,284.33</div>
+              </div>
+              <div class="account-info">
+                <div class="info-row">
+                  <span>Credit Limit</span>
+                  <span>$10,000.00</span>
+                </div>
+                <div class="info-row">
+                  <span>Available Credit</span>
+                  <span>$8,715.67</span>
+                </div>
+                <div class="info-row">
+                  <span>Rewards Points</span>
+                  <span>2,450</span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <button class="account-btn">View Details</button>
+                <button class="account-btn">Make Payment</button>
+                <button class="account-btn">Statement</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Payments Section -->
+        <section class="content-section" id="payments-section">
+          <div class="section-header">
+            <h1>Bill Pay</h1>
+            <p class="section-date">Manage and pay your bills</p>
+          </div>
+
+          <div class="bills-section">
+            <div class="scheduled-bills">
+              <h3>Scheduled Payments</h3>
+              <div class="bill-item">
+                <div class="bill-info">
+                  <div class="bill-icon">⚡</div>
+                  <div class="bill-details">
+                    <div class="bill-name">Electric Company</div>
+                    <div class="bill-date">Due: Jul 20, 2026</div>
+                  </div>
+                </div>
+                <div class="bill-amount">$126.40</div>
+                <button class="bill-btn">Pay Now</button>
+              </div>
+              <div class="bill-item">
+                <div class="bill-info">
+                  <div class="bill-icon">📱</div>
+                  <div class="bill-details">
+                    <div class="bill-name">Phone Service</div>
+                    <div class="bill-date">Due: Jul 25, 2026</div>
+                  </div>
+                </div>
+                <div class="bill-amount">$89.99</div>
+                <button class="bill-btn">Pay Now</button>
+              </div>
+              <div class="bill-item">
+                <div class="bill-info">
+                  <div class="bill-icon">🌐</div>
+                  <div class="bill-details">
+                    <div class="bill-name">Internet Service</div>
+                    <div class="bill-date">Due: Jul 28, 2026</div>
+                  </div>
+                </div>
+                <div class="bill-amount">$59.99</div>
+                <button class="bill-btn">Pay Now</button>
+              </div>
+            </div>
+
+            <div class="payee-list">
+              <h3>Your Payees</h3>
+              <button class="add-payee-btn">+ Add Payee</button>
+              <div class="payee-grid">
+                <div class="payee-item">
+                  <div class="payee-icon">⚡</div>
+                  <div class="payee-name">Electric Company</div>
+                </div>
+                <div class="payee-item">
+                  <div class="payee-icon">📱</div>
+                  <div class="payee-name">Phone Service</div>
+                </div>
+                <div class="payee-item">
+                  <div class="payee-icon">🌐</div>
+                  <div class="payee-name">Internet Service</div>
+                </div>
+                <div class="payee-item">
+                  <div class="payee-icon">🏠</div>
+                  <div class="payee-name">Landlord</div>
+                </div>
+                <div class="payee-item">
+                  <div class="payee-icon">🚗</div>
+                  <div class="payee-name">Auto Insurance</div>
+                </div>
+                <div class="payee-item">
+                  <div class="payee-icon">💳</div>
+                  <div class="payee-name">Credit Card</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cards Section -->
+        <section class="content-section" id="cards-section">
+          <div class="section-header">
+            <h1>My Cards</h1>
+            <p class="section-date">Manage your debit and credit cards</p>
+          </div>
+
+          <div class="cards-display">
+            <div class="credit-card-visual">
+              <div class="card-chip"></div>
+              <div class="card-number">4532 •••• •••• 1139</div>
+              <div class="card-details">
+                <div class="card-holder">JOHN SMITH</div>
+                <div class="card-expiry">09/28</div>
+              </div>
+              <div class="card-brand">VISA</div>
+            </div>
+
+            <div class="card-info">
+              <div class="card-stats">
+                <div class="stat-item">
+                  <div class="stat-label">Current Balance</div>
+                  <div class="stat-value">$1,284.33</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Available Credit</div>
+                  <div class="stat-value">$8,715.67</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Credit Limit</div>
+                  <div class="stat-value">$10,000.00</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Rewards Points</div>
+                  <div class="stat-value">2,450</div>
+                </div>
+              </div>
+
+              <div class="card-actions">
+                <button class="card-action-btn">Lock Card</button>
+                <button class="card-action-btn">Set Alerts</button>
+                <button class="card-action-btn">View PIN</button>
+                <button class="card-action-btn">Request Replacement</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="recent-card-transactions">
+            <h3>Recent Card Transactions</h3>
+            <div class="card-transactions-list">
+              <div class="card-transaction">
+                <div class="transaction-icon">🛒</div>
+                <div class="transaction-details">
+                  <div class="transaction-name">Amazon.com</div>
+                  <div class="transaction-date">Jul 15, 2026</div>
+                </div>
+                <div class="transaction-amount negative">-$67.99</div>
+              </div>
+              <div class="card-transaction">
+                <div class="transaction-icon">⛽</div>
+                <div class="transaction-details">
+                  <div class="transaction-name">Shell Gas Station</div>
+                  <div class="transaction-date">Jul 14, 2026</div>
+                </div>
+                <div class="transaction-amount negative">-$45.00</div>
+              </div>
+              <div class="card-transaction">
+                <div class="transaction-icon">🍔</div>
+                <div class="transaction-details">
+                  <div class="transaction-name">McDonald's</div>
+                  <div class="transaction-date">Jul 13, 2026</div>
+                </div>
+                <div class="transaction-amount negative">-$12.45</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Goals Section -->
+        <section class="content-section" id="goals-section">
+          <div class="section-header">
+            <h1>Savings Goals</h1>
+            <p class="section-date">Track your financial goals and progress</p>
+          </div>
+
+          <div class="goals-container">
+            <div class="goal-card-expanded">
+              <div class="goal-header">
+                <div class="goal-icon-large">🏠</div>
+                <div class="goal-title-section">
+                  <div class="goal-title">Home Down Payment</div>
+                  <div class="goal-target">Target: $20,000</div>
+                </div>
+                <div class="goal-percentage">68%</div>
+              </div>
+              <div class="goal-progress-section">
+                <div class="progress-bar-large">
+                  <div class="progress-fill-large" style="width: 68%"></div>
+                </div>
+                <div class="goal-amounts">
+                  <span class="current-amount">$13,600</span>
+                  <span class="remaining-amount">$6,400 remaining</span>
+                </div>
+              </div>
+              <div class="goal-actions">
+                <button class="goal-btn">Add Funds</button>
+                <button class="goal-btn secondary">Edit Goal</button>
+              </div>
+            </div>
+
+            <div class="goal-card-expanded">
+              <div class="goal-header">
+                <div class="goal-icon-large">🚗</div>
+                <div class="goal-title-section">
+                  <div class="goal-title">New Car</div>
+                  <div class="goal-target">Target: $10,000</div>
+                </div>
+                <div class="goal-percentage">42%</div>
+              </div>
+              <div class="goal-progress-section">
+                <div class="progress-bar-large">
+                  <div class="progress-fill-large" style="width: 42%"></div>
+                </div>
+                <div class="goal-amounts">
+                  <span class="current-amount">$4,200</span>
+                  <span class="remaining-amount">$5,800 remaining</span>
+                </div>
+              </div>
+              <div class="goal-actions">
+                <button class="goal-btn">Add Funds</button>
+                <button class="goal-btn secondary">Edit Goal</button>
+              </div>
+            </div>
+
+            <div class="goal-card-expanded">
+              <div class="goal-header">
+                <div class="goal-icon-large">🌴</div>
+                <div class="goal-title-section">
+                  <div class="goal-title">Vacation Fund</div>
+                  <div class="goal-target">Target: $3,000</div>
+                </div>
+                <div class="goal-percentage">85%</div>
+              </div>
+              <div class="goal-progress-section">
+                <div class="progress-bar-large">
+                  <div class="progress-fill-large" style="width: 85%"></div>
+                </div>
+                <div class="goal-amounts">
+                  <span class="current-amount">$2,550</span>
+                  <span class="remaining-amount">$450 remaining</span>
+                </div>
+              </div>
+              <div class="goal-actions">
+                <button class="goal-btn">Add Funds</button>
+                <button class="goal-btn secondary">Edit Goal</button>
+              </div>
+            </div>
+
+            <button class="add-goal-btn">
+              <div class="add-icon">+</div>
+              <div class="add-text">Create New Goal</div>
+            </button>
+          </div>
+        </section>
+
+        <!-- Statements Section -->
+        <section class="content-section" id="statements-section">
+          <div class="section-header">
+            <h1>Account Statements</h1>
+            <p class="section-date">View and download your monthly statements</p>
+          </div>
+
+          <div class="statements-list">
+            <div class="statement-item">
+              <div class="statement-icon">📄</div>
+              <div class="statement-details">
+                <div class="statement-title">Checking Statement - June 2026</div>
+                <div class="statement-date">Available: July 1, 2026</div>
+              </div>
+              <button class="statement-btn">Download PDF</button>
+            </div>
+            <div class="statement-item">
+              <div class="statement-icon">📄</div>
+              <div class="statement-details">
+                <div class="statement-title">Savings Statement - June 2026</div>
+                <div class="statement-date">Available: July 1, 2026</div>
+              </div>
+              <button class="statement-btn">Download PDF</button>
+            </div>
+            <div class="statement-item">
+              <div class="statement-icon">📄</div>
+              <div class="statement-details">
+                <div class="statement-title">Credit Card Statement - June 2026</div>
+                <div class="statement-date">Available: July 1, 2026</div>
+              </div>
+              <button class="statement-btn">Download PDF</button>
+            </div>
+            <div class="statement-item">
+              <div class="statement-icon">📄</div>
+              <div class="statement-details">
+                <div class="statement-title">Checking Statement - May 2026</div>
+                <div class="statement-date">Available: June 1, 2026</div>
+              </div>
+              <button class="statement-btn">Download PDF</button>
+            </div>
+            <div class="statement-item">
+              <div class="statement-icon">📄</div>
+              <div class="statement-details">
+                <div class="statement-title">Savings Statement - May 2026</div>
+                <div class="statement-date">Available: June 1, 2026</div>
+              </div>
+              <button class="statement-btn">Download PDF</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div class="dashboard" id="adminDashboard"><header class="dashboard-head"><div class="container"><a class="brand" href="#home"><span class="brand-mark">N</span>Northstar Bank</a><div class="admin-nav"><span>Administrator workspace</span><span>Overview</span><span>Support queue</span><button class="signout" id="exitAdmin" type="button">Sign out</button></div></div></header><main class="container dashboard-main"><div class="dashboard-title"><div><p class="section-label">Operations console</p><h1>Administrative dashboard</h1><p>Real-time operational metrics, customer support queue, and system status monitoring.</p></div></div><section class="metric-grid"><div class="metric"><small>Total customers</small><strong>12,480</strong><em>+4.2% this month</em></div><div class="metric"><small>Active accounts</small><strong>28,914</strong><em>+2.8% this month</em></div><div class="metric"><small>Support requests</small><strong>24</strong><em>8 awaiting review</em></div><div class="metric"><small>Service availability</small><strong>99.98%</strong><em>All systems normal</em></div></section><div class="dash-grid"><section class="account-list"><h2>Recent support requests</h2><table class="admin-table"><thead><tr><th>Reference</th><th>Category</th><th>Received</th><th>Status</th></tr></thead><tbody><tr><td>NS-10284</td><td>Card delivery</td><td>10 min ago</td><td><span class="status">Resolved</span></td></tr><tr><td>NS-10283</td><td>Account question</td><td>24 min ago</td><td><span class="status review">In review</span></td></tr><tr><td>NS-10282</td><td>Address update</td><td><span class="status">Resolved</span></td></tr></tbody></table></section><aside><section class="activity"><h2>Team notices</h2><div class="activity-item"><div>Scheduled maintenance<small>Sunday, 02:00 - 02:30 UTC</small></div></div><div class="activity-item"><div>Security training complete<small>98% team completion</small></div></div></section><section class="goal-card"><h2>System status</h2><p>All systems operating normally. 99.98% service availability maintained.</p></section></aside></div></main></div>
+  <script defer src="js/vendor/jquery-1.11.2.min.js"></script>
+  <script defer src="js/vendor/bootstrap.min.js"></script>
+  <script defer src="js/plugins.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/dashboard-loader.js"></script>
+</body>
+</html>

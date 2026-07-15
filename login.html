@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Northstar Bank — Secure Login">
+  <title>Sign in — Northstar Bank</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #071d3a;
+      --blue: #0a4e9b;
+      --gold: #f3b600;
+      --cream: #f7f5f0;
+      --ink: #152238;
+      --muted: #5f6b7a;
+      --line: #dfe4ea;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "DM Sans", Arial, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    .login-container {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    }
+
+    .login-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      background: #fff;
+    }
+
+    .login-form-wrapper {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--navy);
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      letter-spacing: -0.7px;
+      margin-bottom: 40px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font: 700 19px Georgia, serif;
+      border-radius: 2px;
+    }
+
+    .login-form-wrapper h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin: 0 0 10px;
+      color: var(--navy);
+    }
+
+    .login-form-wrapper > p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 14px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-family: inherit;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(10, 78, 155, 0.1);
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .form-options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    .form-options input[type="checkbox"] {
+      cursor: pointer;
+    }
+
+    .form-options a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .form-options a:hover {
+      color: var(--gold);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 13px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-bottom: 12px;
+    }
+
+    .login-btn:hover {
+      background: #093d7a;
+    }
+
+    .signup-link {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .signup-link a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+
+    .signup-link a:hover {
+      color: var(--gold);
+    }
+
+    .error-message {
+      padding: 10px 12px;
+      background: #fce4e4;
+      border: 1px solid #f5a5a5;
+      border-radius: 4px;
+      color: #c33;
+      font-size: 12px;
+      margin-bottom: 18px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .login-illustration {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 40px;
+      color: #fff;
+    }
+
+    .login-illustration h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 36px;
+      line-height: 1.2;
+      margin: 0 0 20px;
+      letter-spacing: -1px;
+    }
+
+    .login-illustration p {
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 400px;
+      opacity: 0.95;
+      margin-bottom: 30px;
+    }
+
+    .security-features {
+      display: grid;
+      gap: 15px;
+      margin-top: 40px;
+    }
+
+    .security-feature {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .security-feature-icon {
+      font-size: 20px;
+      margin-top: 2px;
+    }
+
+    .security-feature-text {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .login-container {
+        grid-template-columns: 1fr;
+      }
+
+      .login-illustration {
+        display: none;
+      }
+
+      .login-panel {
+        padding: 30px 20px;
+      }
+
+      .login-form-wrapper {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-panel {
+        padding: 20px;
+        justify-content: flex-start;
+        padding-top: 40px;
+      }
+
+      .login-form-wrapper {
+        width: 100%;
+      }
+
+      .brand {
+        margin-bottom: 30px;
+      }
+
+      .login-form-wrapper h1 {
+        font-size: 24px;
+        margin-bottom: 8px;
+      }
+
+      .login-form-wrapper > p {
+        font-size: 13px;
+        margin-bottom: 24px;
+      }
+
+      .form-group {
+        margin-bottom: 14px;
+      }
+
+      .form-group input {
+        padding: 11px 12px;
+        font-size: 13px;
+      }
+
+      .login-btn {
+        padding: 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <!-- Left Panel: Login Form -->
+  <div class="login-panel">
+    <div class="login-form-wrapper">
+      <a href="index.html" class="brand"><span class="brand-mark">N</span>Northstar Bank</a>
+      
+      <h1>Sign in</h1>
+      <p>Access your accounts and manage your finances securely.</p>
+
+      <div id="errorMessage" class="error-message"></div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password" minlength="8">
+        </div>
+
+        <div class="form-options">
+          <label>
+            <input type="checkbox" id="rememberMe" name="rememberMe">
+            Remember me
+          </label>
+          <a href="#" onclick="return false;">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">Sign in</button>
+      </form>
+
+      <div class="signup-link">
+        Don't have an account? <a href="signup.html">Create account</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel: Illustration & Features -->
+  <div class="login-illustration">
+    <h2>Banking Made Clear</h2>
+    <p>Manage your money with confidence. Access your accounts, transfer funds, and pay bills—all in one secure place.</p>
+
+    <div class="security-features">
+      <div class="security-feature">
+        <div class="security-feature-icon">🔒</div>
+        <div class="security-feature-text"><strong>Bank-level security</strong><br>256-bit encryption protects your data</div>
+      </div>
+      <div class="security-feature">
+        <div class="security-feature-icon">✓</div>
+        <div class="security-feature-text"><strong>FDIC insured</strong><br>Your deposits protected up to $250,000</div>
+      </div>
+      <div class="security-feature">
+        <div class="security-feature-icon">📱</div>
+        <div class="security-feature-text"><strong>Any device</strong><br>Access from desktop, tablet, or mobile</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Check if user is already logged in
+  window.addEventListener('DOMContentLoaded', function(){
+    const token = localStorage.getItem('northstarToken');
+    if (token){
+      window.location.href = 'dashboard.html';
+    }
+  });
+
+  function handleLogin(e){
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
+    const errorDiv = document.getElementById('errorMessage');
+
+    // Get stored accounts
+    const accounts = JSON.parse(localStorage.getItem('northstarAccounts')) || {};
+
+    // Validate
+    if (!email){
+      errorDiv.textContent = 'Please enter your email address.';
+      errorDiv.classList.add('show');
+      return;
+    }
+
+    if (!password){
+      errorDiv.textContent = 'Please enter your password.';
+      errorDiv.classList.add('show');
+      return;
+    }
+
+    // Check credentials
+    if (accounts[email] && accounts[email].password === password){
+      // Credentials valid
+      const token = 'token_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('northstarToken', token);
+      localStorage.setItem('currentUser', JSON.stringify({
+        name: accounts[email].name,
+        email: email,
+        phone: accounts[email].phone
+      }));
+      
+      if (rememberMe){
+        localStorage.setItem('rememberEmail', email);
+      }
+
+      // Redirect to dashboard
+      window.location.href = 'dashboard.html';
+    } else {
+      errorDiv.textContent = 'Invalid email or password. Please try again.';
+      errorDiv.classList.add('show');
+    }
+  }
+
+  // Pre-fill email if remembered
+  window.addEventListener('DOMContentLoaded', function(){
+    const rememberedEmail = localStorage.getItem('rememberEmail');
+    if (rememberedEmail){
+      document.getElementById('email').value = rememberedEmail;
+      document.getElementById('rememberMe').checked = true;
+    }
+  });
+</script>
+
+</body>
+</html>

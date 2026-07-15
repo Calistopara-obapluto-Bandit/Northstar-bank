@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statements - Northstar Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="js/dashboard-interactions.js"></script>
+  <style>
+    :root { --navy: #071d3a; --blue: #0a4e9b; --gold: #f3b600; --cream: #f7f5f0; --ink: #152238; --muted: #5f6b7a; --line: #dfe4ea; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", Arial, sans-serif; background: var(--cream); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    
+    /* Header - matching index.html */
+    header { color: #fff; background: var(--navy); }
+    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; color: #fff; font-family: "Playfair Display", serif; font-size: 24px; letter-spacing: -0.7px; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--gold); color: var(--gold); font: 700 19px Georgia, serif; }
+    .utility { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+    .utility a:hover { color: var(--gold); }
+    .signin { padding: 10px 17px; color: var(--navy); background: var(--gold); font-weight: 700; border-radius: 2px; border: none; cursor: pointer; }
+    .nav-row { border-top: 1px solid rgba(255,255,255,0.18); }
+    .nav { height: 50px; display: flex; align-items: center; gap: 35px; font-size: 15px; font-weight: 600; }
+    .nav a:hover { color: var(--gold); }
+    
+    /* Dashboard Layout */
+    .dashboard { display: block; min-height: calc(100vh - 126px); }
+    .dashboard-head { padding: 20px 0; color: #fff; background: var(--navy); }
+    .dashboard-head .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .dashboard-main { padding: 48px 0 70px; }
+    .dashboard-title { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 30px; }
+    .dashboard-title h1 { margin: 0; font-size: 43px; font-family: "Playfair Display", serif; }
+    .dashboard-title p { margin: 8px 0 0; color: var(--muted); }
+    
+    .section-header { margin-bottom: 32px; }
+    .section-header h1 { font-size: 43px; font-family: "Playfair Display", serif; margin-bottom: 8px; letter-spacing: -1.7px; }
+    .section-date { color: var(--muted); font-size: 14px; }
+    
+    .statements-list { padding: 25px; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+    .statement-item { display: flex; align-items: center; gap: 16px; padding: 18px; background: var(--cream); border: 1px solid var(--line); border-radius: 6px; margin-bottom: 12px; }
+    .statement-item:last-child { margin-bottom: 0; }
+    .statement-icon { font-size: 24px; }
+    .statement-details { flex: 1; }
+    .statement-name { font-weight: 700; color: var(--ink); }
+    .statement-date { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .statement-btn { padding: 10px 17px; color: #0d213f; background: var(--gold); font-size: 15px; font-weight: 700; border-radius: 2px; border: none; cursor: pointer; transition: 0.2s; }
+    .statement-btn:hover { background: #ffd03c; }
+    
+    /* Sign out button */
+    .signout { padding: 8px 0; border: 0; color: var(--gold); background: transparent; font: inherit; font-weight: 700; cursor: pointer; }
+    
+    @media (max-width: 700px) {
+      .dashboard-title { display: block; }
+      .dashboard-title h1 { font-size: 35px; }
+      .topbar { flex-wrap: wrap; min-height: auto; padding: 15px 0; }
+      .nav { overflow-x: auto; gap: 20px; -webkit-overflow-scrolling: touch; }
+      .nav::-webkit-scrollbar { display: none; }
+      .container { width: calc(100% - 20px); }
+      .dashboard-main { padding: 30px 0; }
+      .statement-item { flex-wrap: wrap; gap: 10px; }
+      .statement-btn { width: 100%; margin-top: 10px; }
+      .statement-name, .statement-date { word-wrap: break-word; overflow-wrap: break-word; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+      <div class="utility">
+        <a href="support.html">Help & support</a>
+        <button class="signout">Sign out</button>
+      </div>
+    </div>
+    <div class="nav-row">
+      <nav class="container nav" aria-label="Main navigation">
+        <a href="dashboard-working.html">Overview</a>
+        <a href="accounts-working.html">Accounts</a>
+        <a href="transfers-working.html">Transfers</a>
+        <a href="payments-working.html">Bill Pay</a>
+        <a href="cards-working.html">Cards</a>
+        <a href="goals-working.html">Goals</a>
+        <a href="statements-working.html" style="color: var(--gold);">Statements</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="dashboard">
+    <div class="dashboard-head">
+      <div class="container">
+        <div class="dashboard-title">
+          <div>
+            <h1>Account Statements</h1>
+            <p>View and download your monthly statements</p>
+          </div>
+          <p style="color: rgba(255,255,255,0.7);">As of July 15, 2026</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-main">
+      <div class="container">
+        
+        <div class="statements-list">
+          <div class="statement-item">
+            <div class="statement-icon">📄</div>
+            <div class="statement-details">
+              <div class="statement-name">Checking Account Statement</div>
+              <div class="statement-date">July 2026</div>
+            </div>
+            <button class="statement-btn">Download PDF</button>
+          </div>
+          <div class="statement-item">
+            <div class="statement-icon">📄</div>
+            <div class="statement-details">
+              <div class="statement-name">Checking Account Statement</div>
+              <div class="statement-date">June 2026</div>
+            </div>
+            <button class="statement-btn">Download PDF</button>
+          </div>
+          <div class="statement-item">
+            <div class="statement-icon">📄</div>
+            <div class="statement-details">
+              <div class="statement-name">Savings Account Statement</div>
+              <div class="statement-date">July 2026</div>
+            </div>
+            <button class="statement-btn">Download PDF</button>
+          </div>
+          <div class="statement-item">
+            <div class="statement-icon">📄</div>
+            <div class="statement-details">
+              <div class="statement-name">Savings Account Statement</div>
+              <div class="statement-date">June 2026</div>
+            </div>
+            <button class="statement-btn">Download PDF</button>
+          </div>
+          <div class="statement-item">
+            <div class="statement-icon">💳</div>
+            <div class="statement-details">
+              <div class="statement-name">Credit Card Statement</div>
+              <div class="statement-date">July 2026</div>
+            </div>
+            <button class="statement-btn">Download PDF</button>
+          </div>
+          <div class="statement-item">
+            <div class="statement-icon">💳</div>
+            <div class="statement-details">
+              <div class="statement-name">Credit Card Statement</div>
+              <div class="statement-date">June 2026</div>
+            </div>
+            <button class="statement-btn">Download PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

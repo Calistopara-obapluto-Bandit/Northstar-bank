@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview - Northstar Bank</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="js/dashboard-interactions.js"></script>
+  <style>
+    :root {
+      --navy: #071d3a;
+      --blue: #0a4e9b;
+      --gold: #f3b600;
+      --cream: #f7f5f0;
+      --ink: #152238;
+      --muted: #5f6b7a;
+      --line: #dfe4ea;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", Arial, sans-serif; background: var(--cream); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    
+    /* Header - matching index.html */
+    header { color: #fff; background: var(--navy); }
+    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; color: #fff; font-family: "Playfair Display", serif; font-size: 24px; letter-spacing: -0.7px; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--gold); color: var(--gold); font: 700 19px Georgia, serif; }
+    .utility { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+    .utility a:hover { color: var(--gold); }
+    .signin { padding: 10px 17px; color: var(--navy); background: var(--gold); font-weight: 700; border-radius: 2px; border: none; cursor: pointer; }
+    .nav-row { border-top: 1px solid rgba(255,255,255,0.18); }
+    .nav { height: 50px; display: flex; align-items: center; gap: 35px; font-size: 15px; font-weight: 600; }
+    .nav a:hover { color: var(--gold); }
+    
+    /* Dashboard Layout */
+    .dashboard { display: block; min-height: calc(100vh - 126px); }
+    .dashboard-head { padding: 20px 0; color: #fff; background: var(--navy); }
+    .dashboard-head .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .dashboard-main { padding: 48px 0 70px; }
+    .dashboard-title { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 30px; }
+    .dashboard-title h1 { margin: 0; font-size: 43px; font-family: "Playfair Display", serif; }
+    .dashboard-title p { margin: 8px 0 0; color: var(--muted); }
+    
+    /* Grid Layout */
+    .dash-grid { display: grid; grid-template-columns: 1.4fr 0.9fr; gap: 25px; }
+    
+    /* Cards */
+    .account-list, .activity, .goal-card { padding: 25px; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+    .account-list h2, .activity h2, .goal-card h2 { margin: 0 0 18px; font-family: "DM Sans", sans-serif; font-size: 19px; letter-spacing: 0; }
+    
+    /* Balance Cards */
+    .balance-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 25px; }
+    .balance-card { padding: 20px; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+    .balance-card.primary { background: var(--blue); color: #fff; border: none; }
+    .balance-card h3 { margin: 0 0 8px; font-size: 12px; font-weight: 700; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; }
+    .balance-amount { font-size: 28px; font-weight: 700; margin: 10px 0; }
+    .balance-sub { font-size: 13px; opacity: 0.8; }
+    
+    /* Account List */
+    .account { display: flex; justify-content: space-between; gap: 15px; padding: 18px 0; border-top: 1px solid var(--line); }
+    .account:first-of-type { border-top: 0; }
+    .account-type { font-weight: 700; }
+    .account-number { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .balance { font-size: 18px; font-weight: 700; text-align: right; }
+    .available { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 400; }
+    
+    /* Activity/Transactions */
+    .activity-item { display: flex; justify-content: space-between; gap: 10px; padding: 15px 0; border-top: 1px solid var(--line); }
+    .activity-item:first-of-type { border-top: 0; }
+    .activity-details { flex: 1; }
+    .activity-name { font-weight: 600; }
+    .activity-meta { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .amount { font-weight: 700; }
+    .amount.positive { color: #28744d; }
+    .amount.negative { color: var(--ink); }
+    
+    /* Spending Chart */
+    .chart-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .bar-label { width: 100px; font-size: 13px; color: var(--muted); }
+    .bar-container { flex: 1; height: 8px; background: #f0f3f7; border-radius: 99px; }
+    .bar-fill { height: 100%; background: var(--gold); border-radius: 99px; }
+    .bar-value { width: 60px; font-weight: 600; color: var(--ink); font-size: 14px; }
+    
+    /* Goals */
+    .goal-card { margin-top: 25px; color: #fff; background: var(--blue); border: 0; }
+    .goal-card p { color: #e5f0ff; }
+    .goal-item { margin-bottom: 20px; }
+    .goal-item:last-child { margin-bottom: 0; }
+    .goal-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .goal-name { font-weight: 600; }
+    .goal-amount { font-weight: 700; }
+    .progress { height: 9px; overflow: hidden; background: rgba(255,255,255,0.28); border-radius: 99px; }
+    .progress span { display: block; height: 100%; background: var(--gold); }
+    .goal-meta { display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; opacity: 0.9; }
+    
+    /* Quick Actions */
+    .quick-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 25px; }
+    .action-btn { padding: 14px 16px; background: #fff; border: 1px solid var(--line); border-radius: 2px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s; }
+    .action-btn:hover { border-color: var(--gold); color: var(--gold); }
+    
+    /* Sign out button */
+    .signout { padding: 8px 0; border: 0; color: var(--gold); background: transparent; font: inherit; font-weight: 700; cursor: pointer; }
+    
+    /* Responsive */
+    @media (max-width: 900px) {
+      .dash-grid { grid-template-columns: 1fr; }
+      .balance-cards { grid-template-columns: 1fr; }
+      .quick-actions { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 700px) {
+      .dashboard-title { display: block; }
+      .dashboard-title h1 { font-size: 35px; }
+      .topbar { flex-wrap: wrap; min-height: auto; padding: 15px 0; }
+      .nav { overflow-x: auto; gap: 20px; -webkit-overflow-scrolling: touch; }
+      .nav::-webkit-scrollbar { display: none; }
+      .quick-actions { grid-template-columns: 1fr; }
+      .container { width: calc(100% - 20px); }
+      .dashboard-main { padding: 30px 0; }
+      .activity-item, .account { flex-direction: column; align-items: flex-start; }
+      .activity-item > *, .account > * { width: 100%; }
+      .amount, .balance { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+      <div class="utility">
+        <a href="support.html">Help & support</a>
+        <button class="signout">Sign out</button>
+      </div>
+    </div>
+    <div class="nav-row">
+      <nav class="container nav" aria-label="Main navigation">
+        <a href="dashboard-working.html" style="color: var(--gold);">Overview</a>
+        <a href="accounts-working.html">Accounts</a>
+        <a href="transfers-working.html">Transfers</a>
+        <a href="payments-working.html">Bill Pay</a>
+        <a href="cards-working.html">Cards</a>
+        <a href="goals-working.html">Goals</a>
+        <a href="statements-working.html">Statements</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="dashboard">
+    <div class="dashboard-head">
+      <div class="container">
+        <div class="dashboard-title">
+          <div>
+            <h1>Account Overview</h1>
+            <p>Welcome back, Customer</p>
+          </div>
+          <p style="color: rgba(255,255,255,0.7);">As of July 15, 2026</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-main">
+      <div class="container">
+        <div class="dash-grid">
+          <div class="left-column">
+            <div class="balance-cards">
+              <div class="balance-card primary">
+                <h3>Total Balance</h3>
+                <div class="balance-amount">$24,658.42</div>
+                <div class="balance-sub">Across all accounts</div>
+              </div>
+              <div class="balance-card">
+                <h3>Available Credit</h3>
+                <div class="balance-amount">$8,715.67</div>
+                <div class="balance-sub">Credit Card</div>
+              </div>
+            </div>
+            
+            <div class="account-list">
+              <h2>Your Accounts</h2>
+              <div class="account">
+                <div>
+                  <div class="account-type">Everyday Checking</div>
+                  <span class="account-number">**** 4821</span>
+                </div>
+                <div>
+                  <div class="balance">$12,458.42</div>
+                  <span class="available">Available: $12,458.42</span>
+                </div>
+              </div>
+              <div class="account">
+                <div>
+                  <div class="account-type">Goal Savings</div>
+                  <span class="account-number">**** 9064</span>
+                </div>
+                <div>
+                  <div class="balance">$10,915.67</div>
+                  <span class="available">Available: $10,915.67</span>
+                </div>
+              </div>
+              <div class="account">
+                <div>
+                  <div class="account-type">Rewards Credit Card</div>
+                  <span class="account-number">**** 1139</span>
+                </div>
+                <div>
+                  <div class="balance">$1,284.33</div>
+                  <span class="available">Available: $8,715.67</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="activity" style="margin-top: 25px;">
+              <h2>Recent Activity</h2>
+              <div class="activity-item">
+                <div class="activity-details">
+                  <div class="activity-name">Payroll Deposit</div>
+                  <span class="activity-meta">Yesterday • Direct Deposit</span>
+                </div>
+                <div class="amount positive">+$3,240.00</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-details">
+                  <div class="activity-name">Whole Foods Market</div>
+                  <span class="activity-meta">Jul 14, 2026 • Debit Card</span>
+                </div>
+                <div class="amount negative">-$156.82</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-details">
+                  <div class="activity-name">Netflix Subscription</div>
+                  <span class="activity-meta">Jul 14, 2026 • Auto-pay</span>
+                </div>
+                <div class="amount negative">-$15.99</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-details">
+                  <div class="activity-name">Interest Credit</div>
+                  <span class="activity-meta">Jul 13, 2026 • Automatic</span>
+                </div>
+                <div class="amount positive">+$22.75</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-details">
+                  <div class="activity-name">Shell Gas Station</div>
+                  <span class="activity-meta">Jul 12, 2026 • Credit Card</span>
+                </div>
+                <div class="amount negative">-$45.00</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-details">
+                  <div class="activity-name">ATM Withdrawal</div>
+                  <span class="activity-meta">Jul 11, 2026 • ATM</span>
+                </div>
+                <div class="amount negative">-$200.00</div>
+              </div>
+            </div>
+            
+            <div class="quick-actions">
+              <button class="action-btn">Transfer Money</button>
+              <button class="action-btn">Pay Bills</button>
+              <button class="action-btn">View Statements</button>
+              <button class="action-btn">Manage Cards</button>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="activity">
+              <h2>Spending Overview</h2>
+              <div class="chart-bar">
+                <div class="bar-label">Groceries</div>
+                <div class="bar-container"><div class="bar-fill" style="width: 45%"></div></div>
+                <div class="bar-value">$624</div>
+              </div>
+              <div class="chart-bar">
+                <div class="bar-label">Utilities</div>
+                <div class="bar-container"><div class="bar-fill" style="width: 28%"></div></div>
+                <div class="bar-value">$389</div>
+              </div>
+              <div class="chart-bar">
+                <div class="bar-label">Dining</div>
+                <div class="bar-container"><div class="bar-fill" style="width: 35%"></div></div>
+                <div class="bar-value">$487</div>
+              </div>
+              <div class="chart-bar">
+                <div class="bar-label">Transportation</div>
+                <div class="bar-container"><div class="bar-fill" style="width: 22%"></div></div>
+                <div class="bar-value">$305</div>
+              </div>
+              <div class="chart-bar">
+                <div class="bar-label">Entertainment</div>
+                <div class="bar-container"><div class="bar-fill" style="width: 18%"></div></div>
+                <div class="bar-value">$250</div>
+              </div>
+              <div class="chart-bar">
+                <div class="bar-label">Shopping</div>
+                <div class="bar-container"><div class="bar-fill" style="width: 25%"></div></div>
+                <div class="bar-value">$342</div>
+              </div>
+            </div>
+            
+            <div class="goal-card">
+              <h2>Savings Goals</h2>
+              <div class="goal-item">
+                <div class="goal-header">
+                  <span class="goal-name">🏠 Home Down Payment</span>
+                  <span class="goal-amount">$13,600</span>
+                </div>
+                <div class="progress"><span style="width: 68%"></span></div>
+                <div class="goal-meta">
+                  <span>68% complete</span>
+                  <span>Target: Dec 2027</span>
+                </div>
+              </div>
+              <div class="goal-item">
+                <div class="goal-header">
+                  <span class="goal-name">🚗 New Car</span>
+                  <span class="goal-amount">$4,200</span>
+                </div>
+                <div class="progress"><span style="width: 42%"></span></div>
+                <div class="goal-meta">
+                  <span>42% complete</span>
+                  <span>Target: Jun 2027</span>
+                </div>
+              </div>
+              <div class="goal-item">
+                <div class="goal-header">
+                  <span class="goal-name">🌴 Vacation Fund</span>
+                  <span class="goal-amount">$2,550</span>
+                </div>
+                <div class="progress"><span style="width: 85%"></span></div>
+                <div class="goal-meta">
+                  <span>85% complete</span>
+                  <span>Target: Aug 2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
