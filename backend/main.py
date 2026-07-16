@@ -10,6 +10,7 @@ import re
 import sqlite3
 import time
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from typing import Optional
 
 import bcrypt
@@ -176,6 +177,46 @@ class SigninBody(BaseModel):
     password: str
 
 
+class TransferBody(BaseModel):
+    from_account_id: int
+    to_account_id: Optional[int] = None
+    external_name: Optional[str] = None
+    amount: float
+    memo: Optional[str] = None
+
+
+# Assumed credit limit per credit account, used to show "available credit".
+CREDIT_LIMIT = 10000.0
+
+
+def today_str() -> str:
+    return datetime.now(timezone.utc).strftime("%b %d, %Y")
+
+
+def me_payload(conn, user: dict) -> dict:
+    accounts = [dict(r) for r in conn.execute(
+        "SELECT id, type, name, balance, account_number FROM accounts WHERE user_id = ? ORDER BY id",
+        (user["id"],),
+    ).fetchall()]
+    goals = [dict(r) for r in conn.execute(
+        "SELECT name, icon, target_amount, current_amount, deadline FROM goals WHERE user_id = ?",
+        (user["id"],),
+    ).fetchall()]
+    transactions = [dict(r) for r in conn.execute(
+        "SELECT description, detail, amount, date FROM transactions WHERE user_id = ? ORDER BY id DESC",
+        (user["id"],),
+    ).fetchall()]
+    return {
+        "name": user["name"],
+        "email": user["email"],
+        "phone": user["phone"],
+        "credit_limit": CREDIT_LIMIT,
+        "accounts": accounts,
+        "goals": goals,
+        "transactions": transactions,
+    }
+
+
 @app.on_event("startup")
 def _startup():
     init_db()
@@ -227,23 +268,56 @@ def signin(body: SigninBody):
 @app.get("/api/me")
 def me(user=Depends(current_user)):
     with get_db() as conn:
-        accounts = [dict(r) for r in conn.execute(
-            "SELECT type, name, balance, account_number FROM accounts WHERE user_id = ?", (user["id"],)
-        ).fetchall()]
-        goals = [dict(r) for r in conn.execute(
-            "SELECT name, icon, target_amount, current_amount, deadline FROM goals WHERE user_id = ?", (user["id"],)
-        ).fetchall()]
-        transactions = [dict(r) for r in conn.execute(
-            "SELECT description, detail, amount, date FROM transactions WHERE user_id = ? ORDER BY id", (user["id"],)
-        ).fetchall()]
-    return {
-        "name": user["name"],
-        "email": user["email"],
-        "phone": user["phone"],
-        "accounts": accounts,
-        "goals": goals,
-        "transactions": transactions,
-    }
+        return me_payload(conn, user)
+
+
+@app.post("/api/transfers")
+def create_transfer(body: TransferBody, user=Depends(current_user)):
+    amount = round(float(body.amount), 2)
+    if amount <= 0:
+        raise HTTPException(status_code=400, detail="Enter an amount greater than zero")
+
+    memo = (body.memo or "").strip()
+    date = today_str()
+
+    with get_db() as conn:
+        src = conn.execute(
+            "SELECT id, name, balance FROM accounts WHERE id = ? AND user_id = ?",
+            (body.from_account_id, user["id"]),
+        ).fetchone()
+        if not src:
+            raise HTTPException(status_code=404, detail="From account not found")
+        if src["balance"] < amount:
+            raise HTTPException(status_code=400, detail="Insufficient funds in the selected account")
+
+        if body.to_account_id is not None:
+            if body.to_account_id == body.from_account_id:
+                raise HTTPException(status_code=400, detail="Choose two different accounts")
+            dst = conn.execute(
+                "SELECT id, name FROM accounts WHERE id = ? AND user_id = ?",
+                (body.to_account_id, user["id"]),
+            ).fetchone()
+            if not dst:
+                raise HTTPException(status_code=404, detail="To account not found")
+            conn.execute("UPDATE accounts SET balance = balance - ? WHERE id = ?", (amount, src["id"]))
+            conn.execute("UPDATE accounts SET balance = balance + ? WHERE id = ?", (amount, dst["id"]))
+            conn.execute(
+                "INSERT INTO transactions (user_id, description, detail, amount, date) VALUES (?, ?, ?, ?, ?)",
+                (user["id"], "Transfer to " + dst["name"], memo or "Internal transfer", -amount, date),
+            )
+            conn.execute(
+                "INSERT INTO transactions (user_id, description, detail, amount, date) VALUES (?, ?, ?, ?, ?)",
+                (user["id"], "Transfer from " + src["name"], memo or "Internal transfer", amount, date),
+            )
+        else:
+            recipient = (body.external_name or "").strip() or "External account"
+            conn.execute("UPDATE accounts SET balance = balance - ? WHERE id = ?", (amount, src["id"]))
+            conn.execute(
+                "INSERT INTO transactions (user_id, description, detail, amount, date) VALUES (?, ?, ?, ?, ?)",
+                (user["id"], "Transfer to " + recipient, memo or "External transfer", -amount, date),
+            )
+
+        return me_payload(conn, user)
 
 
 # Serve the static frontend from the same origin (must be mounted last so the

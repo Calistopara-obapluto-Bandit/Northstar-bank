@@ -50,6 +50,42 @@
     });
   }
 
+  function authApi(path, options) {
+    options = options || {};
+    options.headers = options.headers || {};
+    options.headers['X-Auth-Token'] = getToken();
+    return api(path, options);
+  }
+
+  function formatMoney(n) {
+    var num = Number(n) || 0;
+    return (num < 0 ? '-$' : '$') + Math.abs(num).toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  // Fetch the signed-in member's data and broadcast it so pages can render
+  // real accounts / transactions. Returns the data promise.
+  function refresh() {
+    var token = getToken();
+    if (!token) return Promise.reject(new Error('Not signed in'));
+    return authApi('/api/me').then(function (me) {
+      window.Northstar.me = me;
+      document.dispatchEvent(new CustomEvent('northstar:me', { detail: me }));
+      return me;
+    });
+  }
+
+  window.Northstar = {
+    api: api,
+    authApi: authApi,
+    getToken: getToken,
+    refresh: refresh,
+    formatMoney: formatMoney,
+    me: null
+  };
+
   function isIndexPage() {
     var p = window.location.pathname;
     return p === '/' || p === '' || p.endsWith('/index.html');
@@ -95,8 +131,9 @@
         return;
       }
       wireSignOut();
-      // Verify the token server-side; reveal on success, bounce on failure.
-      api('/api/me', { headers: { 'X-Auth-Token': token } }).then(function (me) {
+      // Verify the token server-side; reveal + broadcast data on success,
+      // bounce on failure.
+      refresh().then(function (me) {
         setSession(token, me.name);
         revealDashboard(dashboard, me.name);
       }, function () {
@@ -110,7 +147,7 @@
 
     // Landing page: if a valid session exists, go straight to the dashboard.
     if (isIndexPage() && token) {
-      api('/api/me', { headers: { 'X-Auth-Token': token } }).then(function () {
+      authApi('/api/me').then(function () {
         window.location.href = 'dashboard.html';
       }, function () {
         clearSession();
