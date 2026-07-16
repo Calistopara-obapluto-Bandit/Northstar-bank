@@ -4,113 +4,134 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bill Pay - Northstar Bank</title>
-  <link rel="stylesheet" href="css/templatemo_style.css">
-  <link rel="stylesheet" href="css/page-styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard-interactions.js"></script>
+  <style>
+    :root {
+      --navy: #071d3a;
+      --blue: #0a4e9b;
+      --gold: #f3b600;
+      --cream: #f7f5f0;
+      --ink: #152238;
+      --muted: #5f6b7a;
+      --line: #dfe4ea;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", Arial, sans-serif; background: var(--cream); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    
+    header { color: #fff; background: var(--navy); }
+    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; color: #fff; font-family: "Playfair Display", serif; font-size: 24px; letter-spacing: -0.7px; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--gold); color: var(--gold); font: 700 19px Georgia, serif; }
+    .utility { display: flex; align-items: center; gap: 22px; font-size: 14px; }
+    .utility a:hover { color: var(--gold); }
+    .signin { padding: 10px 17px; color: var(--navy); background: var(--gold); font-weight: 700; border-radius: 2px; border: none; cursor: pointer; }
+    .nav-row { border-top: 1px solid rgba(255,255,255,0.18); }
+    .nav { height: 50px; display: flex; align-items: center; gap: 35px; font-size: 15px; font-weight: 600; }
+    .nav a:hover { color: var(--gold); }
+    
+    .dashboard { display: block; min-height: calc(100vh - 126px); }
+    .dashboard-head { padding: 20px 0; color: #fff; background: var(--navy); }
+    .dashboard-head .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .dashboard-main { padding: 48px 0 70px; }
+    .dashboard-title { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 30px; }
+    .dashboard-title h1 { margin: 0; font-size: 43px; font-family: "Playfair Display", serif; }
+    .dashboard-title p { margin: 8px 0 0; color: var(--muted); }
+    
+    .dash-grid { display: grid; grid-template-columns: 1.4fr 0.9fr; gap: 25px; }
+    .scheduled-bills, .payee-list { padding: 25px; background: #fff; border: 1px solid var(--line); border-radius: 6px; }
+    .scheduled-bills h2, .payee-list h2 { margin: 0 0 18px; font-family: "DM Sans", sans-serif; font-size: 19px; letter-spacing: 0; }
+    
+    .bill-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-top: 1px solid var(--line); }
+    .bill-item:first-of-type { border-top: 0; }
+    .bill-info { display: flex; align-items: center; gap: 15px; flex: 1; }
+    .bill-icon { font-size: 28px; }
+    .bill-details { flex: 1; }
+    .bill-name { font-weight: 600; }
+    .bill-date { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .bill-amount { font-weight: 700; font-size: 18px; margin-right: 15px; }
+    .bill-btn { padding: 8px 16px; background: var(--navy); color: #fff; border: none; border-radius: 2px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s; }
+    .bill-btn:hover { background: var(--blue); }
+    
+    .payee-list { margin-top: 25px; }
+    .payee-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .add-payee-btn { padding: 8px 16px; background: #fff; border: 1px solid var(--line); border-radius: 2px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s; }
+    .add-payee-btn:hover { border-color: var(--gold); color: var(--gold); }
+    
+    .payee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .payee-item { padding: 20px; background: #f7f5f0; border: 1px solid var(--line); border-radius: 6px; text-align: center; cursor: pointer; transition: 0.2s; }
+    .payee-item:hover { border-color: var(--gold); }
+    .payee-icon { font-size: 32px; margin-bottom: 10px; }
+    .payee-name { font-weight: 600; font-size: 14px; }
+    
+    .signout { padding: 8px 0; border: 0; color: var(--gold); background: transparent; font: inherit; font-weight: 700; cursor: pointer; }
+    
+    @media (max-width: 900px) {
+      .dash-grid { grid-template-columns: 1fr; }
+      .payee-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 700px) {
+      .dashboard-title { display: block; }
+      .dashboard-title h1 { font-size: 35px; }
+      .topbar { flex-wrap: wrap; min-height: auto; padding: 15px 0; }
+      .nav { overflow-x: auto; gap: 20px; -webkit-overflow-scrolling: touch; }
+      .nav::-webkit-scrollbar { display: none; }
+      .container { width: calc(100% - 20px); }
+      .dashboard-main { padding: 30px 0; }
+      .bill-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .bill-amount { margin-right: 0; }
+      .bill-btn { width: 100%; }
+      .payee-grid { grid-template-columns: repeat(2, 1fr); }
+      .payee-list-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="dashboard show" id="dashboard">
-    <header class="banking-header">
-      <div class="header-left">
-        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
-        <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
-        <span class="user-greeting">Welcome back, <span id="memberName">Customer</span></span>
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html"><span class="brand-mark">N</span>Northstar Bank</a>
+      <div class="utility">
+        <a href="support.html">Help & support</a>
+        <button class="signout">Sign out</button>
       </div>
-      <div class="header-right">
-        <button class="icon-btn" title="Notifications">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M10 17a2 2 0 100-4 2 2 0 000 4z"/>
-            <path d="M18 8a6 6 0 00-9.33-5"/>
-            <path d="M10 3v1"/>
-            <path d="M14 2v1"/>
-            <path d="M7 17H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2h-3"/>
-          </svg>
-        </button>
-        <button class="icon-btn" title="Settings">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="10" cy="10" r="3"/>
-            <path d="M10 2v2"/>
-            <path d="M10 16v2"/>
-            <path d="M2 10h2"/>
-            <path d="M16 10h2"/>
-            <path d="M4.93 4.93l1.41 1.41"/>
-            <path d="M13.66 13.66l1.41 1.41"/>
-            <path d="M4.93 15.07l1.41-1.41"/>
-            <path d="M13.66 6.34l1.41-1.41"/>
-          </svg>
-        </button>
-        <button class="signout" id="signOut" type="button">Sign out</button>
-      </div>
-    </header>
-
-    <div class="banking-layout">
-      <aside class="banking-sidebar">
-        <nav class="sidebar-nav">
-          <a href="dashboard.html" class="nav-item">
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="7" height="7"/>
-              <rect x="8" y="8" width="7" height="7"/>
-            </svg>
-            Overview
-          </a>
-          <a href="accounts.html" class="nav-item">
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="7" width="14" height="8" rx="2"/>
-              <path d="M9 7V4a3 3 0 00-6 0v3"/>
-            </svg>
-            Accounts
-          </a>
-          <a href="transfers.html" class="nav-item">
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 10l7-7m0 0l-7 7m7-7v12"/>
-            </svg>
-            Transfers
-          </a>
-          <a href="payments.html" class="nav-item active">
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="5" width="14" height="10" rx="2"/>
-              <line x1="2" y1="10" x2="16" y2="10"/>
-            </svg>
-            Bill Pay
-          </a>
-          <a href="cards.html" class="nav-item">
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="5" width="14" height="8" rx="2"/>
-              <line x1="2" y1="9" x2="16" y2="9"/>
-            </svg>
-            Cards
-          </a>
-          <a href="goals.html" class="nav-item">
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="9" cy="9" r="7"/>
-              <path d="M9 9l3 3"/>
-            </svg>
-            Goals
-          </a>
-          <a href="statements.html" class="nav-item">
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 00-2 2v16l4-4 4 4 4-4 4 4V4a2 2 0 00-2-2z"/>
-            </svg>
-            Statements
-          </a>
-        </nav>
-      </aside>
-
-      <main class="banking-main">
-        <section class="content-section active">
-          <div class="section-header">
+    </div>
+    <div class="nav-row">
+      <nav class="container nav" aria-label="Main navigation">
+        <a href="dashboard.html">Overview</a>
+        <a href="accounts.html">Accounts</a>
+        <a href="transfers.html">Transfers</a>
+        <a href="payments.html" style="color: var(--gold);">Bill Pay</a>
+        <a href="cards.html">Cards</a>
+        <a href="goals.html">Goals</a>
+        <a href="statements.html">Statements</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="dashboard">
+    <div class="dashboard-head">
+      <div class="container">
+        <div class="dashboard-title">
+          <div>
             <h1>Bill Pay</h1>
-            <p class="section-date">Manage and pay your bills</p>
+            <p>Manage and pay your bills</p>
           </div>
-
-          <div class="bills-section">
+          <p style="color: rgba(255,255,255,0.7);">As of July 15, 2026</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-main">
+      <div class="container">
+        <div class="dash-grid">
+          <div class="left-column">
             <div class="scheduled-bills">
-              <h3>Scheduled Payments</h3>
+              <h2>Scheduled Payments</h2>
               <div class="bill-item">
                 <div class="bill-info">
                   <div class="bill-icon">⚡</div>
@@ -145,10 +166,14 @@
                 <button class="bill-btn">Pay Now</button>
               </div>
             </div>
-
+          </div>
+          
+          <div class="right-column">
             <div class="payee-list">
-              <h3>Your Payees</h3>
-              <button class="add-payee-btn">+ Add Payee</button>
+              <div class="payee-list-header">
+                <h2>Your Payees</h2>
+                <button class="add-payee-btn">+ Add Payee</button>
+              </div>
               <div class="payee-grid">
                 <div class="payee-item">
                   <div class="payee-icon">⚡</div>
@@ -177,54 +202,9 @@
               </div>
             </div>
           </div>
-        </section>
-      </main>
-    </div>
-  </div>
-
-  <!-- Access Modal -->
-  <div id="accessModal" class="access-modal">
-    <div class="modal-card">
-      <button class="close-modal" id="closeModal">&times;</button>
-      <h2>Sign In</h2>
-      <p>Access your Northstar Bank account</p>
-      <div class="info-note">For demo purposes, you can create a new account or sign in with an existing one.</div>
-      <div id="signinForm">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="form-input" id="signinEmail" placeholder="Enter your email">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-input" id="signinPassword" placeholder="Enter your password">
-        <div id="signinError" hidden style="color:#ef4444; font-size:13px; margin-top:8px;"></div>
-        <div class="modal-actions">
-          <button class="btn btn-primary access-submit" id="signInBtn">Sign In</button>
-          <button class="text-button" id="switchToSignup">Create Account</button>
-        </div>
-      </div>
-      <div id="signupForm" hidden>
-        <label class="form-label">Full Name</label>
-        <input type="text" class="form-input" id="fullName" placeholder="Enter your full name">
-        <label class="form-label">Email Address</label>
-        <input type="email" class="form-input" id="email" placeholder="Enter your email">
-        <label class="form-label">Phone Number</label>
-        <input type="tel" class="form-input" id="phone" placeholder="Enter your phone number">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-input" id="password" placeholder="Create a password">
-        <label class="form-label">Confirm Password</label>
-        <input type="password" class="form-input" id="confirmPassword" placeholder="Confirm your password">
-        <div id="signupError" hidden style="color:#ef4444; font-size:13px; margin-top:8px;"></div>
-        <div class="modal-actions">
-          <button class="btn btn-primary access-submit" id="createAccountBtn">Create Account</button>
-          <button class="text-button" id="switchToSignin">Back to Sign In</button>
         </div>
       </div>
     </div>
   </div>
-
-  <script src="js/vendor/jquery-1.11.2.min.js"></script>
-  <script src="js/vendor/bootstrap.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/dashboard-data.js"></script>
 </body>
 </html>
