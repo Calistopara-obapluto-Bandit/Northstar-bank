@@ -54,10 +54,12 @@ setting `window.NORTHSTAR_API_BASE` to the backend URL before `js/auth.js` loads
 ## Deployment
 
 The backend needs a server-capable host (it runs a Python/ASGI process and
-writes to SQLite). Deploy `backend/` to a platform like Fly.io, Render, or
-Railway; set `JWT_SECRET` and a persistent `DB_PATH` (e.g. a mounted volume).
-Either serve the frontend from the same host via `STATIC_DIR`, or host the
-static files separately and set `window.NORTHSTAR_API_BASE` to the API URL.
+writes to SQLite). The included `Dockerfile` builds a single container that
+runs the API and serves the frontend from the same origin (`STATIC_DIR=/app`),
+persisting SQLite to `/data/northstar.db` — mount a volume there. Set a strong
+`JWT_SECRET`. This deploys as-is to any container host (Railway, Render,
+Fly.io, etc.). Alternatively, host the static files separately and set
+`window.NORTHSTAR_API_BASE` to the API URL.
 
 ## Project layout
 
