@@ -1,0 +1,27 @@
+/* Critical above-the-fold base styles.
+   Full component styling lives in templatemo-style.css. */
+:root {
+  --navy: #071d3a;
+  --blue: #0a4e9b;
+  --gold: #f3b600;
+  --cream: #f7f5f0;
+  --ink: #152238;
+  --muted: #5f6b7a;
+  --line: #dfe4ea;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "DM Sans", Arial, sans-serif;
+  background: var(--cream);
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: min(1160px, calc(100% - 40px));
+  margin: auto;
+}

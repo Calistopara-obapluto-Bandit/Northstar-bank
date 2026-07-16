@@ -14,71 +14,45 @@ A professional banking application with a modern interface.
 
 ## Tech Stack
 
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Node.js, Express
-- **Database**: MongoDB Atlas
-- **Deployment**: Cyclic.sh
+- **Frontend**: Static HTML, CSS, and vanilla JavaScript
+- **Auth**: Client-side demo authentication (localStorage) — no backend or database required
+- **Server (optional)**: Node.js + Express, used only to serve the static files (`server.js`)
+
+The app is a fully self-contained static site. Sign in / sign up store the
+member name in the browser's `localStorage` and unlock the dashboard pages;
+the dashboards display representative demo data.
 
 ## Local Development
 
-1. Install dependencies:
+You can open the site directly, or serve it with the bundled Express server.
+
+Option A — open the files directly:
+
+- Open `index.html` in your browser (or use any static file server).
+
+Option B — run the Express static server:
+
 ```bash
 npm install
-```
-
-2. Set up MongoDB Atlas:
-   - Create a free account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-   - Create a cluster
-   - Get your connection string
-   - Create a `.env` file with your connection string:
-```
-MONGODB_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/northstar-bank?retryWrites=true&w=majority
-PORT=3000
-```
-
-3. Run the server:
-```bash
 npm start
 ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+Then navigate to `http://localhost:3000`.
 
-## Deployment to Cyclic.sh
+## Deployment
 
-1. Push your code to GitHub
+Because the app is a static site, it can be deployed to any static host
+(Netlify, GitHub Pages, Cloudflare Pages, Vercel, Replit, etc.) — just serve
+the repository root. When using a Node host, `npm start` runs `server.js`,
+which serves the same static files.
 
-2. Go to [Cyclic.sh](https://cyclic.sh)
+## Project layout
 
-3. Click "New Project" and connect your GitHub repository
-
-4. Cyclic will automatically detect it as a Node.js project
-
-5. Add your MongoDB Atlas connection string as an environment variable:
-   - Go to Project Settings → Environment Variables
-   - Add `MONGODB_URI` with your MongoDB connection string
-   - Add `PORT` with value `3000`
-
-6. Click "Deploy"
-
-7. Your app will be live at `https://your-app-name.cyclic.app`
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/signup` - Create a new user
-- `POST /api/auth/signin` - Sign in existing user
-
-### Accounts
-- `GET /api/accounts/:userId` - Get user's accounts
-
-### Transactions
-- `GET /api/transactions/:userId` - Get user's transactions
-- `POST /api/transactions` - Create a new transaction
-
-### Goals
-- `GET /api/goals/:userId` - Get user's savings goals
-- `POST /api/goals` - Create a new goal
-- `PUT /api/goals/:id` - Update a goal
+- `*.html` — pages (landing, dashboard, and marketing/detail pages)
+- `css/` — shared stylesheets (design system + page styles)
+- `js/auth.js` — localStorage demo auth (sign in/up, sign out, page guard)
+- `js/dashboard-interactions.js` — dashboard button interactions
+- `server.js` — optional Express static server
 
 ## Pages
 

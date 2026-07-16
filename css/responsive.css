@@ -1,0 +1,12 @@
+/* Responsive adjustments. Base breakpoints ship in templatemo-style.css
+   and page-styles.css; this file holds shared tablet/desktop tweaks. */
+
+@media (max-width: 992px) {
+  .footer-links { gap: 36px; flex-wrap: wrap; }
+}
+
+@media (max-width: 700px) {
+  .utility a:not(.signin) { display: none; }
+  h1 { font-size: 40px; }
+  h2 { font-size: 30px; }
+}
