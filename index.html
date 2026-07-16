@@ -28,7 +28,7 @@
   </style>
   <style>
     .access-trigger { cursor:pointer; border:0; font:inherit; }
-    .access-modal { position:fixed; inset:0; z-index:20; display:none; place-items:center; padding:20px; background:rgba(4,17,37,.72); }
+    .access-modal { position:fixed; inset:0; z-index:20; display:none; place-items:safe center; padding:20px; background:rgba(4,17,37,.72); overflow-y:auto; }
     .access-modal.open { display:grid; } .modal-card { width:min(460px,100%); padding:34px; background:#fff; border-radius:8px; box-shadow:0 25px 70px rgba(0,0,0,.32); }
     .modal-card h2 { font-size:30px; } .modal-card p { color:var(--muted); line-height:1.55; } .info-note { padding:12px; border-left:4px solid var(--gold); background:#fff7dc; color:#574300!important; font-size:13px; }
     .form-label { display:block; margin:18px 0 7px; font-size:14px; font-weight:700; } .form-input { width:100%; padding:13px; border:1px solid #bdc8d6; border-radius:3px; font:inherit; }
@@ -895,6 +895,6 @@
     </div>
   </div>
   <div class="dashboard" id="adminDashboard"><header class="dashboard-head"><div class="container"><a class="brand" href="#home"><span class="brand-mark">N</span>Northstar Bank</a><div class="admin-nav"><span>Administrator workspace</span><span>Overview</span><span>Support queue</span><button class="signout" id="exitAdmin" type="button">Sign out</button></div></div></header><main class="container dashboard-main"><div class="dashboard-title"><div><p class="section-label">Operations console</p><h1>Administrative dashboard</h1><p>Real-time operational metrics, customer support queue, and system status monitoring.</p></div></div><section class="metric-grid"><div class="metric"><small>Total customers</small><strong>12,480</strong><em>+4.2% this month</em></div><div class="metric"><small>Active accounts</small><strong>28,914</strong><em>+2.8% this month</em></div><div class="metric"><small>Support requests</small><strong>24</strong><em>8 awaiting review</em></div><div class="metric"><small>Service availability</small><strong>99.98%</strong><em>All systems normal</em></div></section><div class="dash-grid"><section class="account-list"><h2>Recent support requests</h2><table class="admin-table"><thead><tr><th>Reference</th><th>Category</th><th>Received</th><th>Status</th></tr></thead><tbody><tr><td>NS-10284</td><td>Card delivery</td><td>10 min ago</td><td><span class="status">Resolved</span></td></tr><tr><td>NS-10283</td><td>Account question</td><td>24 min ago</td><td><span class="status review">In review</span></td></tr><tr><td>NS-10282</td><td>Address update</td><td><span class="status">Resolved</span></td></tr></tbody></table></section><aside><section class="activity"><h2>Team notices</h2><div class="activity-item"><div>Scheduled maintenance<small>Sunday, 02:00 - 02:30 UTC</small></div></div><div class="activity-item"><div>Security training complete<small>98% team completion</small></div></div></section><section class="goal-card"><h2>System status</h2><p>All systems operating normally. 99.98% service availability maintained.</p></section></aside></div></main></div>
-  <script type="module" src="js/auth-firebase.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>

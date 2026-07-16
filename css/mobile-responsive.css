@@ -1,0 +1,7 @@
+/* Small-screen refinements. */
+@media (max-width: 560px) {
+  .topbar { min-height: 62px; }
+  .brand { font-size: 20px; }
+  .modal-card { padding: 24px; }
+  .dashboard-title h1 { font-size: 30px; }
+}

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Transfers - Northstar Bank</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <script type="module" src="js/auth-firebase.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/dashboard-interactions.js"></script>
   <style>
     :root {
@@ -58,6 +58,10 @@
     
     .submit-btn { width: 100%; padding: 14px 20px; background: var(--navy); color: #fff; border: none; border-radius: 2px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; }
     .submit-btn:hover { background: var(--blue); }
+    .submit-btn:disabled { opacity: 0.6; cursor: default; }
+    .form-message { margin-bottom: 18px; padding: 12px 14px; border-radius: 4px; font-size: 14px; font-weight: 600; }
+    .form-message.success { color: #17663c; background: #e1f5e8; border-left: 4px solid #28744d; }
+    .form-message.error { color: #8a1c1c; background: #fdecec; border-left: 4px solid #c0392b; }
     
     .recent-transfers { margin-top: 25px; }
     .recent-transfers h3 { margin: 0 0 15px; font-size: 17px; font-weight: 600; }
@@ -128,63 +132,41 @@
       <div class="container">
         <div class="dash-grid">
           <div class="left-column">
-            <div class="transfer-form">
+            <form class="transfer-form" id="transferForm">
               <h2>New Transfer</h2>
+              <div class="form-message" id="transferMessage" hidden></div>
               <div class="form-group">
-                <label>From Account</label>
-                <select class="form-select">
-                  <option>Northstar Everyday Checking (****4821) - $8,450.20</option>
-                  <option>Northstar Goal Savings (****9064) - $10,000.00</option>
-                  <option>Northstar Rewards Card (****1139) - $1,284.33</option>
-                </select>
+                <label for="fromAccount">From Account</label>
+                <select class="form-select" id="fromAccount"></select>
               </div>
               <div class="form-group">
-                <label>To Account</label>
-                <select class="form-select">
-                  <option>Northstar Goal Savings (****9064) - $10,000.00</option>
-                  <option>Northstar Everyday Checking (****4821) - $8,450.20</option>
-                  <option>External Account</option>
-                  <option>Another Person</option>
-                </select>
+                <label for="toAccount">To Account</label>
+                <select class="form-select" id="toAccount"></select>
+              </div>
+              <div class="form-group" id="externalGroup" hidden>
+                <label for="externalName">Recipient name</label>
+                <input type="text" class="form-input" id="externalName" placeholder="e.g. John Smith">
               </div>
               <div class="form-group">
-                <label>Amount</label>
+                <label for="amount">Amount</label>
                 <div class="amount-input">
                   <span class="currency-symbol">$</span>
-                  <input type="text" class="form-input" placeholder="0.00" value="500.00">
+                  <input type="text" inputmode="decimal" class="form-input" id="amount" placeholder="0.00">
                 </div>
               </div>
               <div class="form-group">
-                <label>Memo (Optional)</label>
-                <input type="text" class="form-input" placeholder="Add a note for your records">
+                <label for="memo">Memo (Optional)</label>
+                <input type="text" class="form-input" id="memo" placeholder="Add a note for your records">
               </div>
-              <button class="submit-btn">Transfer Funds</button>
-            </div>
+              <button class="submit-btn" id="transferSubmit" type="submit">Transfer Funds</button>
+            </form>
           </div>
           
           <div class="right-column">
             <div class="recent-transfers">
               <h2>Recent Transfers</h2>
-              <div class="transfer-item">
-                <div class="transfer-info">
-                  <div class="transfer-title">Transfer to Savings</div>
-                  <div class="transfer-date">Jul 14, 2026</div>
-                </div>
-                <div class="transfer-amount negative">-$500.00</div>
-              </div>
-              <div class="transfer-item">
-                <div class="transfer-info">
-                  <div class="transfer-title">Transfer from Checking</div>
-                  <div class="transfer-date">Jul 10, 2026</div>
-                </div>
-                <div class="transfer-amount positive">+$250.00</div>
-              </div>
-              <div class="transfer-item">
-                <div class="transfer-info">
-                  <div class="transfer-title">External Transfer to John Smith</div>
-                  <div class="transfer-date">Jul 5, 2026</div>
-                </div>
-                <div class="transfer-amount negative">-$150.00</div>
+              <div id="recentTransfers">
+                <p class="transfer-date" style="padding:10px 0;">Loading…</p>
               </div>
             </div>
           </div>
@@ -192,5 +174,152 @@
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var fromSel = document.getElementById('fromAccount');
+      var toSel = document.getElementById('toAccount');
+      var externalGroup = document.getElementById('externalGroup');
+      var externalName = document.getElementById('externalName');
+      var amountInput = document.getElementById('amount');
+      var memoInput = document.getElementById('memo');
+      var form = document.getElementById('transferForm');
+      var submitBtn = document.getElementById('transferSubmit');
+      var messageEl = document.getElementById('transferMessage');
+      var recentEl = document.getElementById('recentTransfers');
+
+      var EXTERNAL = 'external';
+
+      function money(n) { return window.Northstar.formatMoney(n); }
+
+      function accountLabel(a) {
+        return a.name + ' (' + (a.account_number || '') + ') — ' + money(a.balance);
+      }
+
+      function showMessage(text, kind) {
+        messageEl.textContent = text;
+        messageEl.className = 'form-message ' + kind;
+        messageEl.hidden = false;
+      }
+
+      function clearMessage() { messageEl.hidden = true; }
+
+      function populateAccounts(accounts) {
+        var fromVal = fromSel.value;
+        var toVal = toSel.value;
+        fromSel.innerHTML = '';
+        toSel.innerHTML = '';
+        accounts.forEach(function (a) {
+          var o1 = document.createElement('option');
+          o1.value = String(a.id);
+          o1.textContent = accountLabel(a);
+          fromSel.appendChild(o1);
+          var o2 = document.createElement('option');
+          o2.value = String(a.id);
+          o2.textContent = accountLabel(a);
+          toSel.appendChild(o2);
+        });
+        var ext = document.createElement('option');
+        ext.value = EXTERNAL;
+        ext.textContent = 'External account / another person';
+        toSel.appendChild(ext);
+
+        // Restore previous selection when possible, else pick sensible defaults.
+        fromSel.value = fromVal || (accounts[0] && String(accounts[0].id)) || '';
+        if (toVal) {
+          toSel.value = toVal;
+        } else if (accounts[1]) {
+          toSel.value = String(accounts[1].id);
+        }
+        toggleExternal();
+      }
+
+      function toggleExternal() {
+        externalGroup.hidden = toSel.value !== EXTERNAL;
+      }
+
+      function renderRecent(transactions) {
+        var transfers = (transactions || []).filter(function (t) {
+          return /^Transfer\b/i.test(t.description || '');
+        }).slice(0, 8);
+        if (!transfers.length) {
+          recentEl.innerHTML = '<p class="transfer-date" style="padding:10px 0;">No transfers yet.</p>';
+          return;
+        }
+        recentEl.innerHTML = transfers.map(function (t) {
+          var positive = t.amount >= 0;
+          var sign = positive ? '+' : '-';
+          var amt = sign + money(Math.abs(t.amount)).replace('-', '');
+          return '<div class="transfer-item">' +
+            '<div class="transfer-info">' +
+            '<div class="transfer-title">' + escapeHtml(t.description) + '</div>' +
+            '<div class="transfer-date">' + escapeHtml(t.date || '') +
+            (t.detail ? ' • ' + escapeHtml(t.detail) : '') + '</div>' +
+            '</div>' +
+            '<div class="transfer-amount ' + (positive ? 'positive' : 'negative') + '">' + amt + '</div>' +
+            '</div>';
+        }).join('');
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function render(me) {
+        if (!me) return;
+        populateAccounts(me.accounts || []);
+        renderRecent(me.transactions || []);
+      }
+
+      toSel.addEventListener('change', toggleExternal);
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        clearMessage();
+
+        var fromId = parseInt(fromSel.value, 10);
+        var toRaw = toSel.value;
+        var amount = parseFloat(String(amountInput.value).replace(/[$,\s]/g, ''));
+
+        if (!fromId) { showMessage('Choose an account to transfer from.', 'error'); return; }
+        if (!amount || amount <= 0) { showMessage('Enter an amount greater than zero.', 'error'); return; }
+
+        var body = { from_account_id: fromId, amount: amount, memo: memoInput.value.trim() };
+        if (toRaw === EXTERNAL) {
+          body.external_name = externalName.value.trim();
+        } else {
+          var toId = parseInt(toRaw, 10);
+          if (toId === fromId) { showMessage('Choose two different accounts.', 'error'); return; }
+          body.to_account_id = toId;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Transferring…';
+        window.Northstar.authApi('/api/transfers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        }).then(function (me) {
+          window.Northstar.me = me;
+          render(me);
+          amountInput.value = '';
+          memoInput.value = '';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Transfer Funds';
+          showMessage('Transfer complete. ' + money(amount) + ' moved successfully.', 'success');
+        }, function (err) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Transfer Funds';
+          showMessage(err.message, 'error');
+        });
+      });
+
+      document.addEventListener('northstar:me', function (e) { render(e.detail); });
+      if (window.Northstar && window.Northstar.me) render(window.Northstar.me);
+    })();
+  </script>
 </body>
-</html>
+</html>

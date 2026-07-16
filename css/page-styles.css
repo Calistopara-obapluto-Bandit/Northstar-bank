@@ -1,0 +1,183 @@
+/* Page-specific styles for Northstar Bank marketing/detail pages.
+   Relies on the design tokens defined in templatemo-style.css (:root). */
+
+main { display: block; }
+
+.page-section,
+.page-section-cream {
+  padding: 72px 0;
+}
+
+.page-section-cream {
+  background: var(--cream);
+}
+
+.page-section + .page-section,
+.page-section-cream + .page-section-cream {
+  padding-top: 0;
+}
+
+.page-section h2,
+.page-section-cream h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 38px;
+  line-height: 1.15;
+  letter-spacing: -.8px;
+  margin: 0 0 16px;
+}
+
+.page-section h3,
+.page-section-cream h3 {
+  font-size: 24px;
+  margin: 0 0 20px;
+}
+
+.page-section p,
+.page-section-cream p {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.page-button {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 26px;
+  color: #0d213f;
+  background: var(--gold);
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 2px;
+  transition: .2s;
+}
+
+.page-button:hover {
+  background: #ffd03c;
+  transform: translateY(-1px);
+}
+
+/* Feature grids */
+.feature-grid,
+.feature-grid-2,
+.feature-grid-3,
+.feature-grid-4 {
+  display: grid;
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.feature-grid,
+.feature-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.feature-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.feature-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.feature-card,
+.feature-card-center,
+.feature-card-white {
+  padding: 28px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.feature-card:hover,
+.feature-card-center:hover,
+.feature-card-white:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(7, 29, 58, .1);
+}
+
+.feature-card-center { text-align: center; }
+
+.feature-card h3,
+.feature-card-center h3,
+.feature-card-white h3 {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.feature-card p,
+.feature-card-center p,
+.feature-card-white p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.feature-link {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.feature-link:hover { color: var(--gold); }
+
+/* Step numbers (how it works sections) */
+.step-number {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 18px;
+  color: #fff;
+  background: var(--blue);
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Product detail sections */
+.product-detail {
+  padding: 72px 0;
+}
+
+.product-detail .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* FAQ */
+.faq-item {
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+
+.faq-item:first-of-type { border-top: 0; }
+
+.faq-item h3 {
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+.faq-item p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Contact info line */
+.contact-info {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .feature-grid,
+  .feature-grid-3,
+  .feature-grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .page-section,
+  .page-section-cream,
+  .product-detail { padding: 52px 0; }
+  .feature-grid,
+  .feature-grid-2,
+  .feature-grid-3,
+  .feature-grid-4,
+  .product-detail .container { grid-template-columns: 1fr; }
+}

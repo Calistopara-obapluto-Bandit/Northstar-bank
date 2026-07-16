@@ -1,0 +1,4 @@
+# Northstar Bank is a static site (plain HTML/CSS/JS). No build step.
+[build]
+  publish = "."
+  command = "echo 'Static site - no build step required'"
