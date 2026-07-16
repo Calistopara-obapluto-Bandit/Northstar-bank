@@ -1,10 +1,18 @@
-// Northstar Bank authentication (self-contained demo, localStorage only).
-// No backend or database required: sign in / sign up store the member name
-// locally and reveal the protected dashboard pages.
+// Northstar Bank authentication.
+// Talks to the Northstar Bank API for real sign up / sign in (hashed passwords,
+// JWT sessions). The JWT and member name are kept in localStorage so protected
+// pages can reveal the dashboard and greet the member.
 (function () {
   'use strict';
 
-  var STORAGE_KEY = 'northstarUser';
+  // API base URL. Defaults to the page's origin (the backend serves this
+  // frontend). Using the origin — rather than a relative path — avoids fetch
+  // refusing URLs that resolve against a page URL containing credentials
+  // (e.g. behind Basic-auth proxies). Override with `window.NORTHSTAR_API_BASE`.
+  var API_BASE = (window.NORTHSTAR_API_BASE || window.location.origin).replace(/\/$/, '');
+
+  var TOKEN_KEY = 'northstarToken';
+  var NAME_KEY = 'northstarUser';
 
   function ready(fn) {
     if (document.readyState === 'loading') {
@@ -14,18 +22,32 @@
     }
   }
 
-  function getUser() {
-    return localStorage.getItem(STORAGE_KEY);
+  function getToken() { return localStorage.getItem(TOKEN_KEY); }
+  function getName() { return localStorage.getItem(NAME_KEY); }
+
+  function setSession(token, name) {
+    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(NAME_KEY, name);
   }
 
-  function setUser(name) {
-    localStorage.setItem(STORAGE_KEY, name);
-  }
-
-  function clearUser() {
-    localStorage.removeItem(STORAGE_KEY);
-    localStorage.removeItem('northstarToken');
+  function clearSession() {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(NAME_KEY);
     localStorage.removeItem('currentUser');
+  }
+
+  function api(path, options) {
+    return fetch(API_BASE + path, options).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (!res.ok) {
+          var msg = (data && data.detail) ? data.detail : 'Something went wrong. Please try again.';
+          throw new Error(msg);
+        }
+        return data;
+      });
+    }, function () {
+      throw new Error('Cannot reach the server. Please try again.');
+    });
   }
 
   function isIndexPage() {
@@ -52,7 +74,7 @@
     var buttons = document.querySelectorAll('.signout, #signOut, #exitAdmin');
     buttons.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        clearUser();
+        clearSession();
         window.location.href = 'index.html';
       });
     });
@@ -61,28 +83,38 @@
   function init() {
     var modal = document.getElementById('accessModal');
     var dashboard = document.getElementById('dashboard') || document.querySelector('.dashboard');
-    var user = getUser();
+    var token = getToken();
 
-    // Protected app pages (dashboard, accounts, cards, ...) have a .dashboard
-    // wrapper that is hidden by default and no sign-in modal.
+    // Protected app pages (dashboard, accounts, ...) have a .dashboard wrapper
+    // hidden by default and no sign-in modal.
     var isAppPage = dashboard && !modal;
 
     if (isAppPage) {
-      if (!user) {
+      if (!token) {
         window.location.href = 'index.html';
         return;
       }
-      revealDashboard(dashboard, user);
       wireSignOut();
+      // Verify the token server-side; reveal on success, bounce on failure.
+      api('/api/me', { headers: { 'X-Auth-Token': token } }).then(function (me) {
+        setSession(token, me.name);
+        revealDashboard(dashboard, me.name);
+      }, function () {
+        clearSession();
+        window.location.href = 'index.html';
+      });
       return;
     }
 
     wireSignOut();
 
-    // Landing page: if already signed in, go straight to the dashboard.
-    if (isIndexPage() && user) {
-      window.location.href = 'dashboard.html';
-      return;
+    // Landing page: if a valid session exists, go straight to the dashboard.
+    if (isIndexPage() && token) {
+      api('/api/me', { headers: { 'X-Auth-Token': token } }).then(function () {
+        window.location.href = 'dashboard.html';
+      }, function () {
+        clearSession();
+      });
     }
 
     if (!modal) return;
@@ -98,6 +130,7 @@
 
     var fullName = document.getElementById('fullName');
     var email = document.getElementById('email');
+    var phone = document.getElementById('phone');
     var password = document.getElementById('password');
     var confirmPassword = document.getElementById('confirmPassword');
     var createAccountBtn = document.getElementById('createAccountBtn');
@@ -125,22 +158,41 @@
       el.hidden = false;
     }
 
+    function setBusy(btn, busy, label) {
+      if (!btn) return;
+      btn.disabled = busy;
+      btn.textContent = busy ? 'Please wait…' : label;
+    }
+
     function handleSignIn() {
       var emailVal = signinEmail ? signinEmail.value.trim() : '';
-      var pass = signinPassword ? signinPassword.value.trim() : '';
+      var pass = signinPassword ? signinPassword.value : '';
+      if (signinError) signinError.hidden = true;
       if (!emailVal || !pass) {
         showError(signinError, 'Please enter email and password');
         return;
       }
-      setUser(emailVal.split('@')[0]);
-      window.location.href = 'dashboard.html';
+      setBusy(signInBtn, true, 'Sign in');
+      api('/api/auth/signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailVal, password: pass })
+      }).then(function (data) {
+        setSession(data.token, data.name);
+        window.location.href = 'dashboard.html';
+      }, function (err) {
+        setBusy(signInBtn, false, 'Sign in');
+        showError(signinError, err.message);
+      });
     }
 
     function handleSignUp() {
       var name = fullName ? fullName.value.trim() : '';
       var emailVal = email ? email.value.trim() : '';
-      var pass = password ? password.value.trim() : '';
-      var confirm = confirmPassword ? confirmPassword.value.trim() : '';
+      var phoneVal = phone ? phone.value.trim() : '';
+      var pass = password ? password.value : '';
+      var confirm = confirmPassword ? confirmPassword.value : '';
+      if (signupError) signupError.hidden = true;
 
       if (!name || !emailVal || !pass) {
         showError(signupError, 'Please fill in all required fields');
@@ -154,8 +206,18 @@
         showError(signupError, 'Password must be at least 8 characters');
         return;
       }
-      setUser(name);
-      window.location.href = 'dashboard.html';
+      setBusy(createAccountBtn, true, 'Create account');
+      api('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: emailVal, phone: phoneVal, password: pass })
+      }).then(function (data) {
+        setSession(data.token, data.name);
+        window.location.href = 'dashboard.html';
+      }, function (err) {
+        setBusy(createAccountBtn, false, 'Create account');
+        showError(signupError, err.message);
+      });
     }
 
     triggers.forEach(function (btn) {
@@ -169,6 +231,11 @@
       });
     }
     if (createAccountBtn) createAccountBtn.addEventListener('click', handleSignUp);
+    if (confirmPassword) {
+      confirmPassword.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') handleSignUp();
+      });
+    }
 
     if (switchToSignup && signinForm && signupForm) {
       switchToSignup.addEventListener('click', function () {

@@ -4,3 +4,9 @@ node_modules/
 *.log
 .vscode/
 .idea/
+
+# Python / backend
+__pycache__/
+*.pyc
+.venv/
+*.db

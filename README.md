@@ -15,44 +15,59 @@ A professional banking application with a modern interface.
 ## Tech Stack
 
 - **Frontend**: Static HTML, CSS, and vanilla JavaScript
-- **Auth**: Client-side demo authentication (localStorage) — no backend or database required
-- **Server (optional)**: Node.js + Express, used only to serve the static files (`server.js`)
+- **Backend**: FastAPI (Python) with SQLite persistence (`backend/`)
+- **Auth**: Real sign up / sign in — passwords hashed with bcrypt, sessions via JWT
 
-The app is a fully self-contained static site. Sign in / sign up store the
-member name in the browser's `localStorage` and unlock the dashboard pages;
-the dashboards display representative demo data.
+Sign up creates a persistent user record (hashed password) and seeds demo
+accounts, goals, and transactions for that member. The frontend stores the
+returned JWT in `localStorage` and uses it to load the member's data from
+`GET /api/me`; protected pages verify the token server-side before revealing
+the dashboard.
+
+### API
+
+- `POST /api/auth/signup` — `{ name, email, password, phone? }` → `{ token, name, email }`
+- `POST /api/auth/signin` — `{ email, password }` → `{ token, name, email }`
+- `GET /api/me` — send the JWT via the `X-Auth-Token` header (or `Authorization: Bearer`) → member + accounts/goals/transactions
+
+Config via env vars: `JWT_SECRET` (set a strong value in production), `DB_PATH`
+(SQLite file location), and `STATIC_DIR` (optional — when set, the API also
+serves the frontend from the same origin).
 
 ## Local Development
 
-You can open the site directly, or serve it with the bundled Express server.
-
-Option A — open the files directly:
-
-- Open `index.html` in your browser (or use any static file server).
-
-Option B — run the Express static server:
+Run the FastAPI backend, which can also serve the frontend from the same origin:
 
 ```bash
-npm install
-npm start
+cd backend
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+STATIC_DIR=.. uvicorn main:app --reload --port 8000
 ```
 
-Then navigate to `http://localhost:3000`.
+Then open `http://localhost:8000`. Sign up creates a real account; sign back in
+later to see it persisted.
+
+To serve the frontend separately (e.g. a static host), point it at the API by
+setting `window.NORTHSTAR_API_BASE` to the backend URL before `js/auth.js` loads.
 
 ## Deployment
 
-Because the app is a static site, it can be deployed to any static host
-(Netlify, GitHub Pages, Cloudflare Pages, Vercel, Replit, etc.) — just serve
-the repository root. When using a Node host, `npm start` runs `server.js`,
-which serves the same static files.
+The backend needs a server-capable host (it runs a Python/ASGI process and
+writes to SQLite). Deploy `backend/` to a platform like Fly.io, Render, or
+Railway; set `JWT_SECRET` and a persistent `DB_PATH` (e.g. a mounted volume).
+Either serve the frontend from the same host via `STATIC_DIR`, or host the
+static files separately and set `window.NORTHSTAR_API_BASE` to the API URL.
 
 ## Project layout
 
 - `*.html` — pages (landing, dashboard, and marketing/detail pages)
 - `css/` — shared stylesheets (design system + page styles)
-- `js/auth.js` — localStorage demo auth (sign in/up, sign out, page guard)
+- `js/auth.js` — auth client (sign in/up via the API, JWT session, sign out, page guard)
 - `js/dashboard-interactions.js` — dashboard button interactions
-- `server.js` — optional Express static server
+- `backend/main.py` — FastAPI app (auth + SQLite persistence, optional static serving)
+- `backend/requirements.txt`, `backend/pyproject.toml` — backend dependencies
+- `server.js` — legacy Express server (superseded by the FastAPI backend)
 
 ## Pages
 
