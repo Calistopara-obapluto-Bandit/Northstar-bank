@@ -15,7 +15,7 @@
     @media(max-width:700px) { .hero { min-height:0; } .hero::after,.hero::before { display:none; } .quick { margin-top:0; border-radius:0; } }
 
     .access-trigger { cursor:pointer; border:0; font:inherit; }
-    .access-modal { position:fixed; inset:0; z-index:20; display:none; place-items:center; padding:20px; background:rgba(4,17,37,.72); }
+    .access-modal { position:fixed; inset:0; z-index:20; display:none; place-items:safe center; padding:20px; background:rgba(4,17,37,.72); overflow-y:auto; }
     .access-modal.open { display:grid; } .modal-card { width:min(460px,100%); padding:34px; background:#fff; border-radius:8px; box-shadow:0 25px 70px rgba(0,0,0,.32); }
     .modal-card h2 { font-size:30px; } .modal-card p { color:var(--muted); line-height:1.55; } .info-note { padding:12px; border-left:4px solid var(--gold); background:#fff7dc; color:#574300!important; font-size:13px; }
     .form-label { display:block; margin:18px 0 7px; font-size:14px; font-weight:700; } .form-input { width:100%; padding:13px; border:1px solid #bdc8d6; border-radius:3px; font:inherit; }
